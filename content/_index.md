@@ -1,17 +1,13 @@
 ---
-title: My Site
+title: indiegamedev.org
 toc: false
 ---
-
-This is the landing page.
 
 ## Explore
 
 {{< cards >}}
-  {{< card link="docs" title="Docs" icon="book-open" >}}
-  {{< card link="about" title="About" icon="user" >}}
+  {{< card link="articles" title="Articles" icon="book-open" >}}
+  {{< card link="news" title="News" icon="book-open" >}}
+  {{< card link="tutorials" title="Tutorials" icon="book-open" >}}
+  {{< card link="studios" title="Studios" icon="book-open" >}}
 {{< /cards >}}
-
-## Documentation
-
-For more information, visit [Hextra](https://imfing.github.io/hextra).
