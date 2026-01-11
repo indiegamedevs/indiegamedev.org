@@ -48,6 +48,20 @@ menu:
       params:
         icon: github
 
+  sidebar:
+    - name: Contact
+      params:
+        type: separator
+      weight: 1
+
+    - name: GitHub
+      url: "https://github.com/nonameentername"
+      weight: 2
+
+    - name: Discord
+      url: "https://discord.gg/placeholder"
+      weight: 3
+
 params:
   navbar:
     displayTitle: true
