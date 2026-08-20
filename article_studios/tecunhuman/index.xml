@@ -1,0 +1,76 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>indiegamedev.org - Tecunhuman</title><link>/article_studios/tecunhuman/</link><description>Recent content in Tecunhuman on indiegamedev.org</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 16 Aug 2026 00:00:00 +0000</lastBuildDate><atom:link href="/article_studios/tecunhuman/index.xml" rel="self" type="application/rss+xml"/><item><title>How I Recorded The First Brainstorm</title><link>/articles/399dac0b-b7b7-4743-a0d5-5c75ca7e108c/</link><pubDate>Sun, 16 Aug 2026 00:00:00 +0000</pubDate><guid>/articles/399dac0b-b7b7-4743-a0d5-5c75ca7e108c/</guid><description>
+&lt;iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/album/5SraJXcVYWcIn9SFxt4Gy5?utm_source=generator&amp;si=5bf1fee8bf06405b" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"&gt;&lt;/iframe&gt;
+&lt;p&gt;I recently released my first collection of music, and one of the things I wanted to share was the workflow I used to record it.&lt;/p&gt;
+&lt;p&gt;A big part of the process was something surprisingly simple: &lt;strong&gt;my MIDI keyboard is always recording.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Normally, recording music involves opening a DAW, creating a track, pressing record, waiting for the count-in, and then trying to reproduce whatever idea you had.&lt;/p&gt;
+&lt;p&gt;I wanted almost the opposite.&lt;/p&gt;
+&lt;p&gt;I wanted to be able to sit at the piano, start playing, and forget that I was recording at all.&lt;/p&gt;
+&lt;h2&gt;Brainstorm&lt;span class="hx:absolute hx:-mt-20" id="brainstorm"&gt;&lt;/span&gt;
+&lt;a href="#brainstorm" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;For this I use a small command-line program called &lt;strong&gt;Brainstorm&lt;/strong&gt;, which is part of &lt;a href="https://github.com/dgslomin/divs-midi-utilities"target="_blank" rel="noopener"&gt;Div&amp;rsquo;s MIDI Utilities&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Brainstorm listens to incoming MIDI and automatically captures what I play. That means I don&amp;rsquo;t have to decide that I&amp;rsquo;m about to record something.&lt;/p&gt;
+&lt;p&gt;I can just play.&lt;/p&gt;
+&lt;p&gt;If something interesting happens, the performance already exists as MIDI and I can go back to it later.&lt;/p&gt;
+&lt;p&gt;On Linux, I built Brainstorm from source:&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git clone https://github.com/dgslomin/divs-midi-utilities.git
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; divs-midi-utilities
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mkdir bin
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; src
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;make -f Makefile.unix
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; ..
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cp bin/brainstorm ~/.local/bin&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copy code"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2&gt;Running Brainstorm&lt;span class="hx:absolute hx:-mt-20" id="running-brainstorm"&gt;&lt;/span&gt;
+&lt;a href="#running-brainstorm" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Running it is very simple. Brainstorm writes its recordings to the directory it is started from, so I start it inside the folder where I want to keep my musical ideas.&lt;/p&gt;
+&lt;p&gt;I use tmux and start Brainstorm in its own window:&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;tmux new-window -t piano -n brainstorm -c &lt;span class="nv"&gt;$HOME&lt;/span&gt;/music/brainstorm&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copy code"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;From there, I run:&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;brainstorm&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copy code"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;This gives me a Brainstorm process that can stay running in the background as part of my normal piano setup.&lt;/p&gt;
+&lt;h2&gt;Connecting Everything with JACK&lt;span class="hx:absolute hx:-mt-20" id="connecting-everything-with-jack"&gt;&lt;/span&gt;
+&lt;a href="#connecting-everything-with-jack" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The other important part of the setup is JACK.&lt;/p&gt;
+&lt;p&gt;I connect the MIDI output from my keyboard to Brainstorm through JACK and configure things so Brainstorm is always running and listening.&lt;/p&gt;
+&lt;p&gt;I also use &lt;strong&gt;LinuxSampler&lt;/strong&gt; as the instrument I actually hear while playing. My keyboard&amp;rsquo;s MIDI is routed to both LinuxSampler and Brainstorm: LinuxSampler generates the piano sound, while Brainstorm quietly records the MIDI performance in the background.&lt;/p&gt;
+&lt;p&gt;LinuxSampler is a useful part of my setup, and I may cover how I have it configured in more detail later, but it isn&amp;rsquo;t really the focus of this post.&lt;/p&gt;
+&lt;p&gt;The important part here is that the whole setup is ready before I start playing.&lt;/p&gt;
+&lt;p&gt;The result is a workflow where I can walk over to the keyboard and immediately start making music.&lt;/p&gt;
+&lt;p&gt;There&amp;rsquo;s no:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&amp;ldquo;I should record this.&amp;rdquo;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The recording has already started.&lt;/p&gt;
+&lt;p&gt;I think that small difference changes the way I play.&lt;/p&gt;
+&lt;p&gt;Instead of trying to perform something correctly because the red recording light is on, I can improvise freely and decide afterward whether anything was worth keeping.&lt;/p&gt;
+&lt;h2&gt;From Brainstorm to a Release&lt;span class="hx:absolute hx:-mt-20" id="from-brainstorm-to-a-release"&gt;&lt;/span&gt;
+&lt;a href="#from-brainstorm-to-a-release" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Eventually, some of those improvisations became the pieces I released.&lt;/p&gt;
+&lt;p&gt;That makes the name &lt;em&gt;The First Brainstorm&lt;/em&gt; especially appropriate. The music wasn&amp;rsquo;t created by sitting down with the goal of producing an album. It grew out of capturing ideas while I was experimenting and playing.&lt;/p&gt;
+&lt;p&gt;For me, that&amp;rsquo;s probably the most interesting part of building creative tools and workflows: removing the little barriers between having an idea and actually capturing it.&lt;/p&gt;
+&lt;p&gt;Sometimes the best recording interface is one you don&amp;rsquo;t have to think about at all.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.patreon.com/tecunhuman/posts/how-i-recorded-167015420"target="_blank" rel="noopener"&gt;Originally published on Patreon&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>
