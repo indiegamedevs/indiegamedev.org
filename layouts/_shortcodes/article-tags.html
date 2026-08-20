@@ -1,0 +1,21 @@
+{{- $terms := slice -}}
+{{- range $term, $weightedPages := site.Taxonomies.articles_tags -}}
+  {{- $hasArticle := false -}}
+  {{- range $weightedPages -}}
+    {{- if eq .Page.Section "articles" -}}
+      {{- $hasArticle = true -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if $hasArticle -}}
+    {{- $terms = $terms | append (dict "name" $term "page" $weightedPages.Page) -}}
+  {{- end -}}
+{{- end -}}
+{{- if $terms -}}
+Browse by tag:
+{{- range $index, $term := sort $terms "name" -}}
+  {{- if $index }} | {{ end -}}
+  <a href="{{ $term.page.RelPermalink }}">{{ $term.name }}</a>
+{{- end }} | <a href="{{ relref . "/articles_tags" }}">all tags</a>
+{{- else -}}
+No article tags yet.
+{{- end -}}

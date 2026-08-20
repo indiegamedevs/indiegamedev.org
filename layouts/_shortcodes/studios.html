@@ -1,0 +1,26 @@
+{{- $taxonomy := .Get "taxonomy" -}}
+{{- if not $taxonomy -}}
+  {{- $section := .Page.Section -}}
+  {{- if eq $section "articles" -}}
+    {{- $taxonomy = "article_studios" -}}
+  {{- else if eq $section "news" -}}
+    {{- $taxonomy = "news_studios" -}}
+  {{- else if eq $section "tutorials" -}}
+    {{- $taxonomy = "tutorial_studios" -}}
+  {{- end -}}
+{{- end -}}
+{{- $terms := slice -}}
+{{- with (index site.Taxonomies $taxonomy) -}}
+  {{- range $term, $weightedPages := . -}}
+    {{- $terms = $terms | append (dict "name" $term "page" $weightedPages.Page) -}}
+  {{- end -}}
+{{- end -}}
+{{- if $terms -}}
+Browse by studio:
+{{- range $index, $term := sort $terms "name" -}}
+  {{- if $index }} | {{ end -}}
+  <a href="{{ $term.page.RelPermalink }}">{{ $term.name }}</a>
+{{- end -}}
+{{- else -}}
+No studios yet.
+{{- end -}}

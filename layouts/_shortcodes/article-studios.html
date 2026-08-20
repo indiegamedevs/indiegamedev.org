@@ -1,0 +1,13 @@
+{{- $terms := slice -}}
+{{- range $term, $weightedPages := site.Taxonomies.article_studios -}}
+  {{- $terms = $terms | append (dict "name" $term "page" $weightedPages.Page) -}}
+{{- end -}}
+{{- if $terms -}}
+Browse by studio:
+{{- range $index, $term := sort $terms "name" -}}
+  {{- if $index }} | {{ end -}}
+  <a href="{{ $term.page.RelPermalink }}">{{ $term.name }}</a>
+{{- end -}}
+{{- else -}}
+No studios yet.
+{{- end -}}
