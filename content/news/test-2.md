@@ -1,6 +1,7 @@
 ---
 title: "Some Test 2"
 date: 2025-01-11
+news_studios: ["tecunhuman"]
 news_tags: ["godot", "release"]
 ---
 

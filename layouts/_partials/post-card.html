@@ -1,0 +1,41 @@
+{{- $page := .page -}}
+{{- $readMore := .readMore | default ((T "readMore") | default "Read more") -}}
+{{- $image := or $page.Params.image $page.Params.cover $page.Params.thumbnail -}}
+{{- $imageAlt := $page.Params.image_alt | default $page.Title -}}
+{{- if $image -}}
+  {{- $isLocal := not (urls.Parse $image).Scheme -}}
+  {{- if and $isLocal (hasPrefix $image "/") -}}
+    {{- $image = relURL (strings.TrimPrefix "/" $image) -}}
+  {{- end -}}
+{{- end -}}
+
+<article class="igd-post-card">
+  {{- with $image -}}
+    <a class="igd-post-card__media" href="{{ $page.RelPermalink }}" aria-label="{{ $page.Title }}">
+      <img src="{{ . | safeURL }}" alt="{{ $imageAlt }}" loading="lazy" />
+    </a>
+  {{- end -}}
+  <div class="igd-post-card__body">
+    <div class="igd-post-card__meta">
+      {{- if not $page.Date.IsZero -}}
+        <span>{{ partial "utils/format-date" $page.Date }}</span>
+      {{- end -}}
+      {{- with $page.Section -}}
+        {{- if not $page.Date.IsZero -}}<span aria-hidden="true">/</span>{{- end -}}
+        <span>{{ . }}</span>
+      {{- end -}}
+    </div>
+    <h3 class="igd-post-card__title">
+      <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
+    </h3>
+    {{- if site.Params.blog.list.displayTags -}}
+      <div class="igd-post-card__tags">
+        {{ partial "tags.html" (dict "context" $page) }}
+      </div>
+    {{- end -}}
+    <p class="igd-post-card__summary">{{- partial "utils/page-description" $page -}}</p>
+    <div class="igd-post-actions">
+      <a class="igd-post-button" href="{{ $page.RelPermalink }}">{{ $readMore }}</a>
+    </div>
+  </div>
+</article>

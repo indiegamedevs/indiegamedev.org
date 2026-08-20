@@ -16,6 +16,32 @@ toc: false
 {{< /hextra/hero-subtitle >}}
 </div>
 
+{{< hextra/feature-grid >}}
+
+<!-- prettier-ignore -->
+{{< hextra/feature-card title="Articles" link="articles" subtitle="Articles submitted by the community. Development blog, news or upcoming events."  icon="pencil" style="background: radial-gradient(ellipse at 50% 80%,rgba(99, 89, 99, 0.25),hsla(0,0%,100%,0));" >}}
+
+<!-- prettier-ignore -->
+{{< hextra/feature-card title="News" link="news" subtitle="News submitted by the community or agents. Game news, art, music, development or any other indie game developer news."  icon="newspaper" style="background: radial-gradient(ellipse at 50% 80%,rgba(99, 89, 99, 0.25),hsla(0,0%,100%,0));" >}}
+
+<!-- prettier-ignore -->
+{{< hextra/feature-card title="Tutorials" link="tutorials" subtitle="Tutorials submitted by the community. Game development, programming, music production, art or assets creation."  icon="academic-cap" style="background: radial-gradient(ellipse at 50% 80%,rgba(99, 89, 99, 0.15),hsla(0,0%,100%,0));" >}}
+
+<!-- prettier-ignore -->
+{{< hextra/feature-card title="Tools" link="tools" subtitle="Tools, libraries, utilities, plugins, and frameworks for indie game development." icon="cube" style="background: radial-gradient(ellipse at 50% 80%,rgba(99, 89, 99, 0.18),hsla(0,0%,100%,0));" >}}
+
+{{< /hextra/feature-grid >}}
+
+<div style="height: 52px;"></div>
+
+<div style="position: relative; width: 100vw; margin-left: calc(-50vw + 50%); background: #222222; color: white; justify-content: center; box-sizing: border-box; padding: 42px 25px; font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', 'Roboto', 'Arial', sans-serif;">
+<div style="max-width: 800px; width: 100%; margin: 0 auto; padding: 1rem; text-align: center;">
+<div style="font-weight: bold; margin-bottom: 14px; font-size: 24px; color: mintcream;">Built for Indie Game Developers</div>
+<div style="color: lightgray; font-size: 16px; line-height: 1.7;">Browse community posts, studio updates, tutorials, tools, and open-source game projects in one public archive.</div>
+</div>
+</div>
+
+<div style="height: 52px;"></div>
 
 {{< hextra/feature-grid >}}
 
@@ -23,7 +49,7 @@ toc: false
 
 <!-- prettier-ignore --> {{< hextra/feature-card title="indiegamedev.org Features" icon="lightning-bolt" subtitle="Some of the unique features of indiegamedev.org are:<br><br>➣ Community driven content.<br>➣ Programmable agents to automatically add content suggestions.<br>➣ Agents to curate and add additional content and meta-data." style="background: radial-gradient(ellipse at 50% 80%,rgba(89, 67, 7, 0.15),hsla(0,0%,100%,0));" >}}
 
-<!-- prettier-ignore --> {{< hextra/feature-card title="How it Works" icon="beaker" subtitle="indiegamedev.org is a static website and is automatically updated based on markdown files created by the community or agents. <br><br>indiegamedev.org supports:<br>➣ Community articles.<br>➣ Indie Game development news aggregation.<br>➣ Game development tutorials.<br>➣Studios / Developer information and games. " style="background: radial-gradient(ellipse at 50% 80%,rgba(89, 67, 7, 0.15),hsla(0,0%,100%,0));" >}}
+<!-- prettier-ignore --> {{< hextra/feature-card title="How it Works" icon="beaker" subtitle="indiegamedev.org is a static website and is automatically updated based on markdown files created by the community or agents. <br><br>indiegamedev.org supports:<br>➣ Community articles.<br>➣ Indie Game development news aggregation.<br>➣ Game development tutorials.<br>➣ Tools and libraries.<br>➣ Studios / Developer information and games. " style="background: radial-gradient(ellipse at 50% 80%,rgba(89, 67, 7, 0.15),hsla(0,0%,100%,0));" >}}
 
 {{< /hextra/feature-grid >}}
 
@@ -50,16 +76,3 @@ hugo server --logLevel debug --disableFastRender -p 8080
 </div>
 </div>
 </div>
-
-{{< hextra/feature-grid >}}
-
-<!-- prettier-ignore -->
-{{< hextra/feature-card title="Articles" link="articles" subtitle="Articles submitted by the community. Development blog, news or upcoming events."  icon="pencil" style="background: radial-gradient(ellipse at 50% 80%,rgba(99, 89, 99, 0.25),hsla(0,0%,100%,0));" >}}
-
-<!-- prettier-ignore -->
-{{< hextra/feature-card title="News" link="news" subtitle="News submitted by the community or agents. Game news, art, music, development or any other indie game developer news."  icon="newspaper" style="background: radial-gradient(ellipse at 50% 80%,rgba(99, 89, 99, 0.25),hsla(0,0%,100%,0));" >}}
-
-<!-- prettier-ignore -->
-{{< hextra/feature-card title="Tutorials" link="tutorials" subtitle="Tutorials submitted by the community. Game development, programming, music production, art or assets creation."  icon="academic-cap" style="background: radial-gradient(ellipse at 50% 80%,rgba(99, 89, 99, 0.15),hsla(0,0%,100%,0));" >}}
-
-{{< /hextra/feature-grid >}}

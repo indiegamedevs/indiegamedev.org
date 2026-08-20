@@ -1,0 +1,52 @@
+{{ define "main" }}
+  {{- $image := or .Params.image .Params.cover .Params.thumbnail -}}
+  {{- $imageAlt := .Params.image_alt | default .Title -}}
+  {{- if $image -}}
+    {{- $isLocal := not (urls.Parse $image).Scheme -}}
+    {{- if and $isLocal (hasPrefix $image "/") -}}
+      {{- $image = relURL (strings.TrimPrefix "/" $image) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $externalURL := .Params.external_url -}}
+  <div class="hx:mx-auto hx:flex hextra-max-page-width">
+    {{ partial "sidebar.html" (dict "context" . "disableSidebar" true "displayPlaceholder" true) }}
+    {{ partial "toc.html" . }}
+    <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+      <main class="igd-post-page hx:w-full hx:min-w-0 hx:max-w-4xl hx:px-6 hx:pt-4 hx:md:px-12">
+        {{ partial "breadcrumb.html" (dict "page" . "enable" true) }}
+        <header class="igd-post-header">
+          <div class="igd-post-header__meta">
+            {{- if not .Date.IsZero -}}<span>{{ partial "utils/format-date" .Date }}</span>{{- end -}}
+            {{- with .Section -}}
+              {{- if not $.Date.IsZero -}}<span aria-hidden="true">/</span>{{- end -}}
+              <span>{{ . }}</span>
+            {{- end -}}
+          </div>
+          {{ if .Title }}<h1>{{ .Title }}</h1>{{ end }}
+          {{- with .Params.summary -}}
+            <p class="igd-post-header__summary">{{ . }}</p>
+          {{- end -}}
+          {{- with $image -}}
+            <figure class="igd-post-cover">
+              <img src="{{ . | safeURL }}" alt="{{ $imageAlt }}" />
+            </figure>
+          {{- end -}}
+        </header>
+        <div class="content">
+          {{ .Content }}
+        </div>
+        {{- with $externalURL -}}
+          <div class="igd-external-link-block">
+            <a class="igd-post-button igd-post-button--primary" href="{{ . | safeURL }}" target="_blank" rel="noopener noreferrer">External link</a>
+          </div>
+        {{- end -}}
+        {{- partial "components/last-updated.html" . -}}
+        {{- if (site.Params.blog.article.displayPagination | default true) -}}
+          {{- .Store.Set "reversePagination" (.Params.reversePagination | default true) -}}
+          {{- partial "components/pager.html" . -}}
+        {{ end }}
+        {{- partial "components/comments.html" . -}}
+      </main>
+    </article>
+  </div>
+{{ end }}
