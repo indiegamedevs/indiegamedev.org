@@ -1,10 +1,9 @@
 ---
 title: "Windows Games"
 slug: "windows-games"
-game_studios: ["tecunhuman"]
 game_tags: ["windows", "open-source"]
 external_url: "https://github.com/nonameentername/windows-games"
-image: "/images/games/3cbfda8d-2674-498b-a6cf-9c7ad5b18f0b.jpg"
+image: "/images/games/tecunhuman/windows-games.jpg"
 image_alt: "Screenshot of Celda, an old Windows game"
 summary: "Windows games created a long time ago using Borland BGI using c++"
 ---

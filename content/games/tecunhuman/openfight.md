@@ -1,10 +1,9 @@
 ---
 title: "OpenFight"
 slug: "openfight"
-game_studios: ["tecunhuman"]
 game_tags: ["fighting", "open-source", "sdl"]
 external_url: "https://github.com/nonameentername/openfight"
-image: "/images/games/150d9b8a-04f8-4c2a-b7f5-5967e782f6fa.jpg"
+image: "/images/games/tecunhuman/openfight.jpg"
 image_alt: "Screenshot of OpenFight"
 summary: "An open-source fighting game project."
 ---

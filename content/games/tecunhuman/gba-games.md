@@ -1,10 +1,9 @@
 ---
 title: "GBA Games"
-slug: "tecunhuman-gba-games"
-game_studios: ["tecunhuman"]
+slug: "gba-games"
 game_tags: ["gba", "retro", "open-source"]
 external_url: "https://github.com/nonameentername/gba-games"
-image: "/images/games/68dc2d2e-76a0-491e-b4df-2ec89583214f.jpg"
+image: "/images/games/tecunhuman/gba-games.jpg"
 image_alt: "Screenshot of Megatroid, a Game Boy Advance game"
 summary: "Gameboy Advance games created around GBAX 2004 Coding Competition"
 ---

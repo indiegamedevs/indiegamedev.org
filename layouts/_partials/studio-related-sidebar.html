@@ -2,11 +2,11 @@
 {{- $studio := .studio -}}
 {{- $pageURL := $context.RelPermalink -}}
 {{- $groups := slice
-  (dict "title" "Games" "url" (relURL "games/") "pages" (where site.RegularPages "Params.game_studios" "intersect" (slice $studio)))
-  (dict "title" "Articles" "url" (relURL "articles/") "pages" (where site.RegularPages "Params.article_studios" "intersect" (slice $studio)))
-  (dict "title" "News" "url" (relURL "news/") "pages" (where site.RegularPages "Params.news_studios" "intersect" (slice $studio)))
-  (dict "title" "Tutorials" "url" (relURL "tutorials/") "pages" (where site.RegularPages "Params.tutorial_studios" "intersect" (slice $studio)))
-  (dict "title" "Tools" "url" (relURL "tools/") "pages" (where site.RegularPages "Params.tool_studios" "intersect" (slice $studio)))
+  (dict "title" "Games" "url" (relURL (printf "games/%s/" $studio)) "pages" (where site.RegularPages "Params.game_studios" "intersect" (slice $studio)))
+  (dict "title" "Articles" "url" (relURL (printf "articles/%s/" $studio)) "pages" (where site.RegularPages "Params.article_studios" "intersect" (slice $studio)))
+  (dict "title" "News" "url" (relURL (printf "news/%s/" $studio)) "pages" (where site.RegularPages "Params.news_studios" "intersect" (slice $studio)))
+  (dict "title" "Tutorials" "url" (relURL (printf "tutorials/%s/" $studio)) "pages" (where site.RegularPages "Params.tutorial_studios" "intersect" (slice $studio)))
+  (dict "title" "Tools" "url" (relURL (printf "tools/%s/" $studio)) "pages" (where site.RegularPages "Params.tool_studios" "intersect" (slice $studio)))
 -}}
 <aside class="hextra-sidebar-container hx:flex hx:flex-col hx:print:hidden hx:md:top-16 hx:md:shrink-0 hx:md:w-64 hx:md:self-start hx:max-md:[transform:translate3d(0,-100%,0)] hx:md:sticky">
   <div class="hextra-scrollbar hx:overflow-y-auto hx:overflow-x-hidden hx:p-4 hx:grow hx:md:h-[calc(100vh-var(--navbar-height)-var(--menu-height))]">

@@ -12,7 +12,7 @@
           {{ .Content }}
         </div>
         <div class="igd-post-feed">
-          {{- range .Pages -}}
+          {{- range .RegularPages -}}
             {{ partial "post-card.html" (dict "page" . "readMore" $readMore) }}
           {{- end -}}
         </div>

@@ -2,9 +2,8 @@
 title: "How I Recorded The First Brainstorm"
 
 date: 2026-08-16
-article_studios: ["tecunhuman"]
 articles_tags: ["music", "composition", "automation"]
-image: "/images/articles/399dac0b-b7b7-4743-a0d5-5c75ca7e108c.jpg"
+image: "/images/articles/tecunhuman/how-i-recorded-the-first-brainstorm.jpg"
 image_alt: "The First Brainstorm"
 summary: "A look at the always-on MIDI recording workflow I used to capture piano ideas before they disappeared."
 #external_url: "https://www.patreon.com/tecunhuman/posts/how-i-recorded-167015420"
