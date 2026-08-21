@@ -1,0 +1,38 @@
+{{/* FlexSearch Index Data */}}
+{{- $indexType := site.Params.search.flexsearch.index | default "content" -}}
+
+{{- if not (in (slice "content" "summary" "heading" "title" ) $indexType) -}}
+  {{- errorf "unknown flexsearch index type: %s" $indexType -}}
+{{- end -}}
+
+{{- $pages := where .Site.Pages "Kind" "in" (slice "page" "section") -}}
+{{- $pages = where $pages "Params.excludeSearch" "!=" true -}}
+{{- $pages = where $pages "Content" "!=" "" -}}
+
+{{- $output := dict -}}
+{{- $metadataParams := slice "game_tags" "articles_tags" "news_tags" "tutorial_tags" "tool_tags" "game_studios" "article_studios" "news_studios" "tutorial_studios" "tool_studios" -}}
+
+{{- range $index, $page := $pages -}}
+  {{- $pageTitle := $page.LinkTitle | default $page.File.BaseFileName -}}
+  {{- $pageLink := $page.RelPermalink -}}
+  {{- $data := partial "utils/fragments" (dict "context" $page "type" $indexType) -}}
+  {{- $s := newScratch -}}
+  {{- $s.Set "searchTerms" slice -}}
+  {{- range $metadataParams -}}
+    {{- with index $page.Params . -}}
+      {{- range . -}}
+        {{- $s.Add "searchTerms" (slice . (. | humanize)) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $searchTerms := $s.Get "searchTerms" -}}
+  {{- if gt (len $searchTerms) 0 -}}
+    {{- $metadata := delimit (uniq $searchTerms) " " -}}
+    {{- $rootContent := index $data "" | default "" -}}
+    {{- $rootContent = printf "%s\n%s" $rootContent $metadata | strings.TrimSpace -}}
+    {{- $data = merge $data (dict "" $rootContent) -}}
+  {{- end -}}
+  {{- $output = merge $output (dict $pageLink (dict "title" $pageTitle "data" $data)) -}}
+{{- end -}}
+
+{{- $output | jsonify -}}
