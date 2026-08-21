@@ -40,6 +40,7 @@
 }
 
 .igd-post-card:not(:has(.igd-post-card__media)) .igd-post-card__body {
+  grid-column: 1 / -1;
   padding-left: 1.25rem;
 }
 
@@ -60,6 +61,21 @@
   color: rgb(148, 163, 184);
 }
 
+.igd-post-card__meta-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.igd-post-card__meta-link:hover {
+  color: hsl(var(--primary-hue), 95%, 40%);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.dark .igd-post-card__meta-link:hover {
+  color: hsl(var(--primary-hue), 90%, 68%);
+}
+
 .igd-post-card__title {
   margin: 0.45rem 0 0;
   font-size: 1.45rem;
@@ -78,7 +94,42 @@
 }
 
 .igd-post-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
   margin-top: 0.65rem;
+}
+
+.igd-post-card__tag {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 999px;
+  padding: 0.16rem 0.5rem;
+  color: rgb(71, 85, 105);
+  background: rgba(248, 250, 252, 0.72);
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.igd-post-card__tag:hover {
+  border-color: hsl(var(--primary-hue), 85%, 55%);
+  color: hsl(var(--primary-hue), 95%, 34%);
+  background: hsl(var(--primary-hue), 95%, 97%);
+}
+
+.dark .igd-post-card__tag {
+  border-color: rgba(148, 163, 184, 0.22);
+  color: rgb(203, 213, 225);
+  background: rgba(30, 41, 59, 0.68);
+}
+
+.dark .igd-post-card__tag:hover {
+  border-color: hsl(var(--primary-hue), 80%, 60%);
+  color: hsl(var(--primary-hue), 90%, 75%);
+  background: rgba(30, 41, 59, 0.96);
 }
 
 .igd-post-card__summary {

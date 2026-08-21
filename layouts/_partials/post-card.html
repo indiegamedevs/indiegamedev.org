@@ -1,7 +1,32 @@
 {{- $page := .page -}}
 {{- $readMore := .readMore | default ((T "readMore") | default "Read more") -}}
+{{- $showStudio := .showStudio | default false -}}
 {{- $image := or $page.Params.image $page.Params.cover $page.Params.thumbnail -}}
 {{- $imageAlt := $page.Params.image_alt | default $page.Title -}}
+{{- $studioParam := "" -}}
+{{- if eq $page.Section "games" -}}
+  {{- $studioParam = "game_studios" -}}
+{{- else if eq $page.Section "articles" -}}
+  {{- $studioParam = "article_studios" -}}
+{{- else if eq $page.Section "news" -}}
+  {{- $studioParam = "news_studios" -}}
+{{- else if eq $page.Section "tutorials" -}}
+  {{- $studioParam = "tutorial_studios" -}}
+{{- else if eq $page.Section "tools" -}}
+  {{- $studioParam = "tool_studios" -}}
+{{- end -}}
+{{- $tagParam := "" -}}
+{{- if eq $page.Section "games" -}}
+  {{- $tagParam = "game_tags" -}}
+{{- else if eq $page.Section "articles" -}}
+  {{- $tagParam = "articles_tags" -}}
+{{- else if eq $page.Section "news" -}}
+  {{- $tagParam = "news_tags" -}}
+{{- else if eq $page.Section "tutorials" -}}
+  {{- $tagParam = "tutorial_tags" -}}
+{{- else if eq $page.Section "tools" -}}
+  {{- $tagParam = "tool_tags" -}}
+{{- end -}}
 {{- if $image -}}
   {{- $isLocal := not (urls.Parse $image).Scheme -}}
   {{- if and $isLocal (hasPrefix $image "/") -}}
@@ -24,14 +49,31 @@
         {{- if not $page.Date.IsZero -}}<span aria-hidden="true">/</span>{{- end -}}
         <span>{{ . }}</span>
       {{- end -}}
+      {{- if and $showStudio $studioParam -}}
+        {{- with index $page.Params $studioParam -}}
+          {{- range . -}}
+            {{- $studio := . -}}
+            {{- $studioPage := site.GetPage (printf "/studios/%s" $studio) -}}
+            <span aria-hidden="true">/</span>
+            <a class="igd-post-card__meta-link" href="{{ relURL (printf "%s/%s/" $page.Section $studio) }}">
+              {{- with $studioPage -}}{{ .Title }}{{- else -}}{{ $studio | humanize }}{{- end -}}
+            </a>
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
     </div>
     <h3 class="igd-post-card__title">
       <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
     </h3>
-    {{- if site.Params.blog.list.displayTags -}}
-      <div class="igd-post-card__tags">
-        {{ partial "tags.html" (dict "context" $page) }}
-      </div>
+    {{- if $tagParam -}}
+      {{- with index $page.Params $tagParam -}}
+        <div class="igd-post-card__tags">
+          {{- range . -}}
+            {{- $tag := . -}}
+            <a class="igd-post-card__tag" href="{{ relURL (printf "%s/%s/" $tagParam $tag) }}">{{ $tag | humanize }}</a>
+          {{- end -}}
+        </div>
+      {{- end -}}
     {{- end -}}
     <p class="igd-post-card__summary">{{- partial "utils/page-description" $page -}}</p>
     <div class="igd-post-actions">
