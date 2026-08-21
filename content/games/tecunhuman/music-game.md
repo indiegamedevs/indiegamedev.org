@@ -1,9 +1,8 @@
 ---
 title: "Music Game"
 slug: "music-game"
-game_studios: ["tecunhuman"]
 game_tags: ["music", "audio", "upcoming", "godot"]
-image: "/images/games/3c317df4-f125-479e-84d4-26071c620cc1.jpg"
+image: "/images/games/tecunhuman/music-game.jpg"
 image_alt: "Screenshot of GodotSynth"
 summary: "Upcoming game centered around interactive music."
 ---

@@ -1,5 +1,7 @@
 ---
 title: TecunHuman
+banner_image: "/images/studios/tecunhuman/banner.jpg"
+banner_alt: "TecunHuman studio banner"
 ---
 
 **TecunHuman** is an independent game studio focused on creating games, developer tools, and open-source technology for game development.
