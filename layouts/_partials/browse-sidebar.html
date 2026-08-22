@@ -11,6 +11,8 @@
     {{- $section = "tutorials" -}}
   {{- else if in (slice "tool_studios" "tool_tags") $context.Type -}}
     {{- $section = "tools" -}}
+  {{- else if in (slice "video_studios" "video_tags") $context.Type -}}
+    {{- $section = "videos" -}}
   {{- end -}}
 {{- end -}}
 
@@ -43,6 +45,11 @@
   {{- $sectionURL = relURL "tools/" -}}
   {{- $studioTaxonomy = "tool_studios" -}}
   {{- $tagTaxonomy = "tool_tags" -}}
+{{- else if eq $section "videos" -}}
+  {{- $sectionTitle = "Videos" -}}
+  {{- $sectionURL = relURL "videos/" -}}
+  {{- $studioTaxonomy = "video_studios" -}}
+  {{- $tagTaxonomy = "video_tags" -}}
 {{- end -}}
 
 {{- $pageURL := $context.RelPermalink -}}

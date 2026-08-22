@@ -13,10 +13,12 @@ taxonomies:
   news_studio: news_studios
   tutorial_studio: tutorial_studios
   tool_studio: tool_studios
+  video_studio: video_studios
   articles_tag: articles_tags
   news_tag: news_tags
   tutorial_tag: tutorial_tags
   tool_tag: tool_tags
+  video_tag: video_tags
 
 markup:
   # allow raw html
@@ -30,33 +32,40 @@ markup:
 
 menu:
   main:
-    - name: Articles
-      pageRef: /articles
-      weight: 1
     - name: News
       pageRef: /news
+      weight: 1
+    - name: Articles
+      pageRef: /articles
       weight: 2
     - name: Tutorials
       pageRef: /tutorials
       weight: 3
+    - name: Videos
+      pageRef: /videos
+      weight: 4
     - name: Games
       pageRef: /games
-      weight: 4
+      weight: 5
     - name: Tools
       pageRef: /tools
-      weight: 5
+      weight: 6
+    - name: Developers
+      pageRef: /devs
+      weight: 7
     - name: Studios
       pageRef: /studios
-      weight: 6
+      weight: 8
+
     - name: Contact ↗
       url: "https://github.com/nonameentername"
-      weight: 7
+      weight: 9
     - name: Search
-      weight: 8
+      weight: 10
       params:
         type: search
     - name: GitHub
-      weight: 9
+      weight: 11
       url: "https://github.com/indiegamedevs/indiegamedev.org"
       params:
         icon: github

@@ -27,7 +27,8 @@
           {{- end -}}
           {{- with $image -}}
             <figure class="igd-post-cover">
-              <img src="{{ . | safeURL }}" alt="{{ $imageAlt }}" />
+              <img class="igd-post-image-bg" src="{{ . | safeURL }}" alt="" aria-hidden="true" />
+              <img class="igd-post-image-main" src="{{ . | safeURL }}" alt="{{ $imageAlt }}" />
             </figure>
           {{- end -}}
         </header>
