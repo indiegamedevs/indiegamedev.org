@@ -1,6 +1,7 @@
 ---
 title: "Beyond Audio Playback: Building Interactive Audio Systems in Godot"
 date: 2026-08-10
+video_studios: ["tecunhuman"]
 video_tags: ["godot", "audio", "interactive-audio", "talk", "godotcon"]
 external_url: "https://www.youtube.com/watch?v=tl65HJZKCAM"
 image: "https://i.ytimg.com/vi/tl65HJZKCAM/hqdefault.jpg"

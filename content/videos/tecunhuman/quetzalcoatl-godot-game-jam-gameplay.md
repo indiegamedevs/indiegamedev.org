@@ -1,6 +1,7 @@
 ---
 title: "Quetzalcoatl - Godot Game Jam Gameplay"
 date: 2026-08-03
+video_studios: ["tecunhuman"]
 video_tags: ["godot", "game-jam", "gameplay", "quetzalcoatl"]
 external_url: "https://www.youtube.com/watch?v=zt7ODFeZgnQ"
 image: "https://i.ytimg.com/vi/zt7ODFeZgnQ/hqdefault.jpg"

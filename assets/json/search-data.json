@@ -10,7 +10,7 @@
 {{- $pages = where $pages "Content" "!=" "" -}}
 
 {{- $output := dict -}}
-{{- $metadataParams := slice "game_tags" "articles_tags" "news_tags" "tutorial_tags" "tool_tags" "game_studios" "article_studios" "news_studios" "tutorial_studios" "tool_studios" -}}
+{{- $metadataParams := slice "game_tags" "articles_tags" "news_tags" "tutorial_tags" "tool_tags" "video_tags" "game_studios" "article_studios" "news_studios" "tutorial_studios" "tool_studios" "video_studios" -}}
 
 {{- range $index, $page := $pages -}}
   {{- $pageTitle := $page.LinkTitle | default $page.File.BaseFileName -}}
