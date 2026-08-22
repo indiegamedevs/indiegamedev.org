@@ -1,5 +1,6 @@
 ---
 title: Games
+weight: 5
 aliases:
   - /studios/tecunhuman/games/
 cascade:
