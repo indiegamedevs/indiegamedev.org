@@ -1,5 +1,6 @@
 ---
 title: "Quetzalcoatl"
+date: 2026-07-03
 slug: "quetzalcoatl"
 game_tags: ["game-jam", "open-source", "godot", "audio"]
 external_url: "https://github.com/nonameentername/quetzalcoatl"
