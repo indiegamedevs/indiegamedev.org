@@ -1,5 +1,6 @@
 ---
 title: Videos
+weight: 4
 cascade:
   type: blog
 ---

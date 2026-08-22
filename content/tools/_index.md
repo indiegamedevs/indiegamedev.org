@@ -1,5 +1,6 @@
 ---
 title: Tools
+weight: 6
 cascade:
   type: blog
 ---
