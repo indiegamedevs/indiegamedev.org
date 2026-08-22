@@ -1,5 +1,6 @@
 ---
 title: "Music Game"
+date: 2026-08-21
 slug: "music-game"
 game_tags: ["music", "audio", "upcoming", "godot"]
 image: "/images/games/tecunhuman/music-game.jpg"

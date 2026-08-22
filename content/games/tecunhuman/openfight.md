@@ -1,5 +1,6 @@
 ---
 title: "OpenFight"
+date: 2011-06-06
 slug: "openfight"
 game_tags: ["fighting", "open-source", "sdl"]
 external_url: "https://github.com/nonameentername/openfight"
