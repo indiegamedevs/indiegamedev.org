@@ -37,7 +37,8 @@
 <article class="igd-post-card">
   {{- with $image -}}
     <a class="igd-post-card__media" href="{{ $page.RelPermalink }}" aria-label="{{ $page.Title }}">
-      <img src="{{ . | safeURL }}" alt="{{ $imageAlt }}" loading="lazy" />
+      <img class="igd-post-image-bg" src="{{ . | safeURL }}" alt="" aria-hidden="true" loading="lazy" />
+      <img class="igd-post-image-main" src="{{ . | safeURL }}" alt="{{ $imageAlt }}" loading="lazy" />
     </a>
   {{- end -}}
   <div class="igd-post-card__body">

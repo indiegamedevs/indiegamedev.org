@@ -1,0 +1,22 @@
+{{- $page := .page -}}
+{{- $image := or $page.Params.image $page.Params.cover $page.Params.thumbnail -}}
+{{- $imageAlt := $page.Params.image_alt | default $page.Title -}}
+{{- if $image -}}
+  {{- $isLocal := not (urls.Parse $image).Scheme -}}
+  {{- if and $isLocal (hasPrefix $image "/") -}}
+    {{- $image = relURL (strings.TrimPrefix "/" $image) -}}
+  {{- end -}}
+{{- end -}}
+
+<article class="igd-page-card igd-dev-card">
+  <a class="igd-page-card__link" href="{{ $page.RelPermalink }}" aria-label="{{ $page.Title }}">
+    {{- with $image -}}
+      <span class="igd-page-card__media">
+        <img src="{{ . | safeURL }}" alt="{{ $imageAlt }}" loading="lazy" />
+      </span>
+    {{- end -}}
+    <span class="igd-page-card__body">
+      <span class="igd-page-card__title">{{ $page.Title }}</span>
+    </span>
+  </a>
+</article>
