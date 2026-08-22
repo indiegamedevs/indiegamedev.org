@@ -1,6 +1,7 @@
 ---
 title: "Dynamic and Procedural Audio in Godot"
 date: 2026-07-17
+video_studios: ["tecunhuman"]
 video_tags: ["godot", "audio", "procedural-audio", "talk", "velocicode"]
 external_url: "https://www.youtube.com/watch?v=qXlm-xPf0gc"
 image: "https://i.ytimg.com/vi/qXlm-xPf0gc/hqdefault.jpg"

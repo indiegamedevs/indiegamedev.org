@@ -11,6 +11,8 @@
     {{- $sectionLabel = "Tutorials" -}}
   {{- else if eq .Type "tool_tags" -}}
     {{- $sectionLabel = "Tools" -}}
+  {{- else if eq .Type "video_tags" -}}
+    {{- $sectionLabel = "Videos" -}}
   {{- else if eq .Type "game_studios" -}}
     {{- $sectionLabel = "Games" -}}
   {{- else if eq .Type "article_studios" -}}
@@ -21,9 +23,11 @@
     {{- $sectionLabel = "Tutorials" -}}
   {{- else if eq .Type "tool_studios" -}}
     {{- $sectionLabel = "Tools" -}}
+  {{- else if eq .Type "video_studios" -}}
+    {{- $sectionLabel = "Videos" -}}
   {{- end -}}
   {{- $displayTitle := .Title -}}
-  {{- if in (slice "game_studios" "article_studios" "news_studios" "tutorial_studios" "tool_studios") .Type -}}
+  {{- if in (slice "game_studios" "article_studios" "news_studios" "tutorial_studios" "tool_studios" "video_studios") .Type -}}
     {{- with site.GetPage (printf "/studios/%s" .Data.Term) -}}
       {{- $displayTitle = .Title -}}
     {{- end -}}

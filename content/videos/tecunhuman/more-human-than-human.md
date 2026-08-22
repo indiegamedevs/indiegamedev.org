@@ -1,6 +1,7 @@
 ---
 title: "More Human Than Human"
 date: 2026-02-28
+video_studios: ["tecunhuman"]
 video_tags: ["ai", "talk", "conference"]
 external_url: "https://www.youtube.com/watch?v=JOx9ObjlKAg"
 image: "https://i.ytimg.com/vi/JOx9ObjlKAg/hqdefault.jpg"

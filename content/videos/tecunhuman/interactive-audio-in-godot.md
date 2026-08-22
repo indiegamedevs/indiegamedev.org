@@ -1,6 +1,7 @@
 ---
 title: "Interactive Audio in Godot"
 date: 2026-07-22
+video_studios: ["tecunhuman"]
 video_tags: ["godot", "audio", "interactive-audio", "demo"]
 external_url: "https://www.youtube.com/watch?v=s4RdpC1FSEI"
 image: "https://i.ytimg.com/vi/s4RdpC1FSEI/hqdefault.jpg"

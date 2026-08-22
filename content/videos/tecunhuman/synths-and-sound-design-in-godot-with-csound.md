@@ -1,6 +1,7 @@
 ---
 title: "Synths and Sound Design in Godot with Csound - Werner Mendizabal - GodotCon 2025"
 date: 2025-08-21
+video_studios: ["tecunhuman"]
 video_tags: ["godot", "audio", "csound", "talk", "godotcon"]
 external_url: "https://www.youtube.com/watch?v=RsOCO_rVT90"
 image: "https://i.ytimg.com/vi/RsOCO_rVT90/hqdefault.jpg"
