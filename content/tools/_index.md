@@ -1,5 +1,6 @@
 ---
 title: Tools
+description: Browse tools, libraries, utilities, plugins, and frameworks for indie game development.
 weight: 6
 cascade:
   type: blog

@@ -1,17 +1,39 @@
 {{ define "main" }}
-  <div class='hx:mx-auto hx:flex hextra-max-page-width'>
-    {{ partial "sidebar.html" (dict "context" . "disableSidebar" true) }}
-    <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
-      <main class="igd-studios-main hx:w-full hx:min-w-0 hx:max-w-6xl hx:px-6 hx:pt-4 hx:md:px-12">
+  <div class='igd-section-shell'>
+    {{ partial "browse-sidebar.html" (dict "context" .) }}
+    <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:pb-8 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+      <main class="igd-section-main igd-studios-main hx:w-full hx:min-w-0 hx:px-6 hx:pt-4 hx:md:px-12">
         {{ partial "breadcrumb.html" (dict "page" . "enable" false) }}
-        <div class="content">
-          {{ if .Title }}<h1>{{ .Title }}</h1>{{ end }}
-          {{ .Content }}
+        <header class="igd-section-header">
+          <div>
+            <span class="igd-section-eyebrow">Directory</span>
+            {{ if .Title }}<h1>{{ .Title }}</h1>{{ end }}
+            {{- with .Description -}}<p>{{ . }}</p>{{- end -}}
+          </div>
+          <div class="igd-section-count">
+            <strong>{{ len .RegularPages }}</strong>
+            <span>entries</span>
+          </div>
+        </header>
+        {{- with .Content -}}<div class="igd-section-intro content">{{ . }}</div>{{- end -}}
+        <div class="igd-section-feed-header">
+          <h2>Browse Entries</h2>
+          <div class="igd-view-toggle" role="group" aria-label="Feed layout">
+            <button class="igd-view-toggle__button igd-view-toggle__button--active" type="button" data-igd-view-button="cards">Cards</button>
+            <button class="igd-view-toggle__button" type="button" data-igd-view-button="rows">Rows</button>
+          </div>
         </div>
-        <div class="igd-page-card-grid">
-          {{- range .RegularPages.ByTitle -}}
-            {{ partial "dev-card.html" (dict "page" .) }}
-          {{- end -}}
+        <div class="igd-section-feed" data-igd-view="cards">
+          <div class="igd-page-card-grid" data-igd-feed-view="cards">
+            {{- range .RegularPages.ByTitle -}}
+              {{ partial "dev-card.html" (dict "page" .) }}
+            {{- end -}}
+          </div>
+          <div class="igd-directory-row-list" data-igd-feed-view="rows" hidden>
+            {{- range .RegularPages.ByTitle -}}
+              {{ partial "directory-row.html" (dict "page" . "kind" "developer") }}
+            {{- end -}}
+          </div>
         </div>
         <div class="hx:mt-16"></div>
         {{ partial "components/last-updated.html" . }}
@@ -19,4 +41,39 @@
       </main>
     </article>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var root = document.querySelector('.igd-section-feed');
+      if (!root) return;
+
+      var storageKey = 'igd-section-feed-view';
+      var buttons = Array.prototype.slice.call(document.querySelectorAll('[data-igd-view-button]'));
+      var views = Array.prototype.slice.call(document.querySelectorAll('[data-igd-feed-view]'));
+
+      function setView(view) {
+        if (view !== 'rows') view = 'cards';
+        root.setAttribute('data-igd-view', view);
+        views.forEach(function (element) {
+          element.hidden = element.getAttribute('data-igd-feed-view') !== view;
+        });
+        buttons.forEach(function (button) {
+          var active = button.getAttribute('data-igd-view-button') === view;
+          button.classList.toggle('igd-view-toggle__button--active', active);
+          button.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+        try { window.localStorage.setItem(storageKey, view); } catch (error) {}
+      }
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          setView(button.getAttribute('data-igd-view-button'));
+        });
+      });
+
+      var preferred = 'cards';
+      try { preferred = window.localStorage.getItem(storageKey) || preferred; } catch (error) {}
+      setView(preferred);
+    });
+  </script>
 {{ end }}

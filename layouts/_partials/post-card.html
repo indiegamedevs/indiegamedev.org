@@ -14,6 +14,8 @@
   {{- $studioParam = "tutorial_studios" -}}
 {{- else if eq $page.Section "tools" -}}
   {{- $studioParam = "tool_studios" -}}
+{{- else if eq $page.Section "videos" -}}
+  {{- $studioParam = "video_studios" -}}
 {{- end -}}
 {{- $tagParam := "" -}}
 {{- if eq $page.Section "games" -}}
@@ -26,6 +28,8 @@
   {{- $tagParam = "tutorial_tags" -}}
 {{- else if eq $page.Section "tools" -}}
   {{- $tagParam = "tool_tags" -}}
+{{- else if eq $page.Section "videos" -}}
+  {{- $tagParam = "video_tags" -}}
 {{- end -}}
 {{- if $image -}}
   {{- $isLocal := not (urls.Parse $image).Scheme -}}

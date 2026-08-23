@@ -9,31 +9,23 @@
   (dict "title" "Videos" "url" (relURL (printf "videos/%s/" $studio)) "pages" (where site.RegularPages "Params.video_studios" "intersect" (slice $studio)))
   (dict "title" "Tools" "url" (relURL (printf "tools/%s/" $studio)) "pages" (where site.RegularPages "Params.tool_studios" "intersect" (slice $studio)))
 -}}
-<aside class="hextra-sidebar-container hx:flex hx:flex-col hx:print:hidden hx:md:top-16 hx:md:shrink-0 hx:md:w-64 hx:md:self-start hx:max-md:[transform:translate3d(0,-100%,0)] hx:md:sticky">
-  <div class="hextra-scrollbar hx:overflow-y-auto hx:overflow-x-hidden hx:p-4 hx:grow hx:md:h-[calc(100vh-var(--navbar-height)-var(--menu-height))]">
-    <ul class="hx:flex hx:flex-col hx:gap-1">
-      <li>
-        <a class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word] hextra-sidebar-active-item hx:bg-primary-100 hx:font-semibold hx:text-primary-800 hx:contrast-more:border hx:contrast-more:border-primary-500 hx:dark:bg-primary-400/10 hx:dark:text-primary-600 hx:contrast-more:dark:border-primary-500" href="{{ $context.RelPermalink }}">{{ $context.Title }}</a>
-      </li>
-      {{- range (union $context.RegularPages $context.Sections).ByWeight -}}
-        {{- if ne .Params.sidebar.exclude true -}}
-          <li>
-            <a class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word] {{ if eq $pageURL .RelPermalink }}hextra-sidebar-active-item hx:bg-primary-100 hx:font-semibold hx:text-primary-800 hx:contrast-more:border hx:contrast-more:border-primary-500 hx:dark:bg-primary-400/10 hx:dark:text-primary-600 hx:contrast-more:dark:border-primary-500{{ else }}hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50{{ end }}" href="{{ .RelPermalink }}">{{ partial "utils/title" . }}</a>
-          </li>
-        {{- end -}}
+<aside class="igd-section-sidebar" aria-label="Studio resources">
+  <div class="igd-section-sidebar__title">Studio</div>
+  <a class="igd-section-sidebar__link igd-section-sidebar__link--active" href="{{ $context.RelPermalink }}">{{ $context.Title }}</a>
+
+  {{- range (union $context.RegularPages $context.Sections).ByWeight -}}
+    {{- if ne .Params.sidebar.exclude true -}}
+      <a class="igd-section-sidebar__filter{{ if eq $pageURL .RelPermalink }} igd-section-sidebar__filter--active{{ end }}" href="{{ .RelPermalink }}"><span>{{ partial "utils/title" . }}</span></a>
+    {{- end -}}
+  {{- end -}}
+
+  {{- range $groups -}}
+    {{- if .pages -}}
+      <div class="igd-section-sidebar__divider"></div>
+      <div class="igd-section-sidebar__title"><a href="{{ .url }}">{{ .title }}</a></div>
+      {{- range .pages.ByDate.Reverse -}}
+        <a class="igd-section-sidebar__filter{{ if eq $pageURL .RelPermalink }} igd-section-sidebar__filter--active{{ end }}" href="{{ .RelPermalink }}"><span>{{ .Title }}</span></a>
       {{- end -}}
-      {{- range $groups -}}
-        {{- if .pages -}}
-          <li class="[word-break:break-word] hx:mt-5 hx:mb-2 hx:px-2 hx:py-1.5 hx:text-sm hx:font-semibold hx:text-gray-900 hx:first:mt-0 hx:dark:text-gray-100">
-            <a class="hx:cursor-pointer hx:hover:text-primary-600" href="{{ .url }}">{{ .title }}</a>
-          </li>
-          {{- range .pages.ByDate.Reverse -}}
-            <li>
-              <a class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word] {{ if eq $pageURL .RelPermalink }}hextra-sidebar-active-item hx:bg-primary-100 hx:font-semibold hx:text-primary-800 hx:contrast-more:border hx:contrast-more:border-primary-500 hx:dark:bg-primary-400/10 hx:dark:text-primary-600 hx:contrast-more:dark:border-primary-500{{ else }}hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50{{ end }}" href="{{ .RelPermalink }}">{{ .Title }}</a>
-            </li>
-          {{- end -}}
-        {{- end -}}
-      {{- end -}}
-    </ul>
-  </div>
+    {{- end -}}
+  {{- end -}}
 </aside>

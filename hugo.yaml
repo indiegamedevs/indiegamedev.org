@@ -57,7 +57,7 @@ menu:
       pageRef: /studios
       weight: 8
 
-    - name: Contact ↗
+    - name: Contact
       url: "https://github.com/nonameentername"
       weight: 9
     - name: Search

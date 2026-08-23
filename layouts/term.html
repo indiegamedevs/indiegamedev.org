@@ -11,6 +11,8 @@
     {{- $sectionLabel = "Tutorials" -}}
   {{- else if eq .Type "tool_tags" -}}
     {{- $sectionLabel = "Tools" -}}
+  {{- else if eq .Type "video_tags" -}}
+    {{- $sectionLabel = "Videos" -}}
   {{- else if eq .Type "game_studios" -}}
     {{- $sectionLabel = "Games" -}}
   {{- else if eq .Type "article_studios" -}}
@@ -21,9 +23,11 @@
     {{- $sectionLabel = "Tutorials" -}}
   {{- else if eq .Type "tool_studios" -}}
     {{- $sectionLabel = "Tools" -}}
+  {{- else if eq .Type "video_studios" -}}
+    {{- $sectionLabel = "Videos" -}}
   {{- end -}}
   {{- $displayTitle := .Title -}}
-  {{- if in (slice "game_studios" "article_studios" "news_studios" "tutorial_studios" "tool_studios") .Type -}}
+  {{- if in (slice "game_studios" "article_studios" "news_studios" "tutorial_studios" "tool_studios" "video_studios") .Type -}}
     {{- with site.GetPage (printf "/studios/%s" .Data.Term) -}}
       {{- $displayTitle = .Title -}}
     {{- end -}}
@@ -31,22 +35,78 @@
   {{- with $sectionLabel -}}
     {{- $displayTitle = printf "%s %s" $displayTitle . -}}
   {{- end -}}
-  <div class='hx:mx-auto hx:flex hextra-max-page-width'>
+  <div class='igd-section-shell'>
     {{ partial "browse-sidebar.html" (dict "context" .) }}
-    <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
-      <main class="hx:w-full hx:min-w-0 hx:max-w-6xl hx:px-6 hx:pt-4 hx:md:px-12">
-        <br class="hx:mt-1.5 hx:text-sm" />
-        {{ if $displayTitle }}<h1 class="hx:text-center hx:mt-2 hx:text-4xl hx:font-bold hx:tracking-tight hx:text-slate-900 hx:dark:text-slate-100">{{ $displayTitle }}</h1>{{ end }}
-        <div class="hx:mb-16"></div>
-        <div class="content">
-          {{ .Content }}
+    <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:pb-8 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+      <main class="igd-section-main hx:w-full hx:min-w-0 hx:px-6 hx:pt-4 hx:md:px-12">
+        <header class="igd-section-header">
+          <div>
+            <span class="igd-section-eyebrow">{{ .Type | humanize }}</span>
+            {{ if $displayTitle }}<h1>{{ $displayTitle }}</h1>{{ end }}
+          </div>
+          <div class="igd-section-count">
+            <strong>{{ len .RegularPages }}</strong>
+            <span>entries</span>
+          </div>
+        </header>
+        {{- with .Content -}}
+          <div class="igd-section-intro content">{{ . }}</div>
+        {{- end -}}
+        <div class="igd-section-feed-header">
+          <h2>Browse Entries</h2>
+          <div class="igd-view-toggle" role="group" aria-label="Feed layout">
+            <button class="igd-view-toggle__button igd-view-toggle__button--active" type="button" data-igd-view-button="cards">Cards</button>
+            <button class="igd-view-toggle__button" type="button" data-igd-view-button="rows">Rows</button>
+          </div>
         </div>
-        <div class="igd-post-feed">
-          {{- range .RegularPages -}}
-            {{ partial "post-card.html" (dict "page" . "readMore" $readMore "showStudio" true) }}
-          {{- end -}}
+        <div class="igd-section-feed" data-igd-view="cards">
+          <div class="igd-section-card-grid" data-igd-feed-view="cards">
+            {{- range .RegularPages -}}
+              {{ partial "home-resource-card.html" (dict "page" .) }}
+            {{- end -}}
+          </div>
+          <div class="igd-post-feed" data-igd-feed-view="rows" hidden>
+            {{- range .RegularPages -}}
+              {{ partial "post-card.html" (dict "page" . "readMore" $readMore "showStudio" true) }}
+            {{- end -}}
+          </div>
         </div>
       </main>
     </article>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var root = document.querySelector('.igd-section-feed');
+      if (!root) return;
+
+      var storageKey = 'igd-section-feed-view';
+      var buttons = Array.prototype.slice.call(document.querySelectorAll('[data-igd-view-button]'));
+      var views = Array.prototype.slice.call(document.querySelectorAll('[data-igd-feed-view]'));
+
+      function setView(view) {
+        if (view !== 'rows') view = 'cards';
+        root.setAttribute('data-igd-view', view);
+        views.forEach(function (element) {
+          element.hidden = element.getAttribute('data-igd-feed-view') !== view;
+        });
+        buttons.forEach(function (button) {
+          var active = button.getAttribute('data-igd-view-button') === view;
+          button.classList.toggle('igd-view-toggle__button--active', active);
+          button.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+        try { window.localStorage.setItem(storageKey, view); } catch (error) {}
+      }
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          setView(button.getAttribute('data-igd-view-button'));
+        });
+      });
+
+      var preferred = 'cards';
+      try { preferred = window.localStorage.getItem(storageKey) || preferred; } catch (error) {}
+      setView(preferred);
+    });
+  </script>
 {{ end }}

@@ -61,68 +61,45 @@
 {{- with index $context.Params $tagTaxonomy -}}
 {{- $currentTags = . -}}
 {{- end -}}
-<aside class="hextra-sidebar-container hx:flex hx:flex-col hx:print:hidden hx:md:top-16 hx:md:shrink-0 hx:md:w-64 hx:md:self-start hx:max-md:[transform:translate3d(0,-100%,0)] hx:md:sticky">
-  <div class="hextra-scrollbar hx:overflow-y-auto hx:overflow-x-hidden hx:p-4 hx:grow hx:md:h-[calc(100vh-var(--navbar-height)-var(--menu-height))]">
-    <ul class="hx:flex hx:flex-col hx:gap-1">
-      {{- with $sectionTitle -}}
-        <li>
-          <a class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word] {{ if eq $pageURL $sectionURL }}hextra-sidebar-active-item hx:bg-primary-100 hx:font-semibold hx:text-primary-800 hx:contrast-more:border hx:contrast-more:border-primary-500 hx:dark:bg-primary-400/10 hx:dark:text-primary-600 hx:contrast-more:dark:border-primary-500{{ else }}hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50{{ end }}" href="{{ $sectionURL }}">{{ . }}</a>
-        </li>
-      {{- end -}}
+<aside class="igd-section-sidebar" aria-label="Section filters">
+  {{- with $sectionTitle -}}
+    <div class="igd-section-sidebar__title">Section</div>
+    <a class="igd-section-sidebar__link igd-section-sidebar__link--active" href="{{ $sectionURL }}">{{ . }}</a>
+  {{- else -}}
+    <div class="igd-section-sidebar__title">Section</div>
+    <a class="igd-section-sidebar__link igd-section-sidebar__link--active" href="{{ $context.RelPermalink }}">{{ $context.Title }}</a>
+  {{- end -}}
 
-      {{- with index site.Taxonomies $studioTaxonomy -}}
-        <li class="[word-break:break-word] hx:mt-5 hx:mb-2 hx:px-2 hx:py-1.5 hx:text-sm hx:font-semibold hx:text-gray-900 hx:first:mt-0 hx:dark:text-gray-100">
-          <span class="hx:cursor-default">Studios</span>
-        </li>
-        {{- range $term, $weightedPages := . -}}
-          {{- if or (ne $context.Kind "page") (in $currentStudios $term) -}}
-          {{- $studioURL := relURL (printf "%s/%s/" $section $term) -}}
-          {{- $isActiveStudio := or (eq $pageURL $studioURL) (in $currentStudios $term) -}}
-          <li>
-            <a class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word] {{ if $isActiveStudio }}hextra-sidebar-active-item hx:bg-primary-100 hx:font-semibold hx:text-primary-800 hx:contrast-more:border hx:contrast-more:border-primary-500 hx:dark:bg-primary-400/10 hx:dark:text-primary-600 hx:contrast-more:dark:border-primary-500{{ else }}hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50{{ end }}" href="{{ $studioURL }}">
-              <span>{{ $term }}</span>
-            </a>
-            {{- if and $isActiveStudio (eq $context.Kind "page") -}}
-              <div class="hx:ltr:pr-0 hx:overflow-hidden">
-                <ul class='hx:relative hx:flex hx:flex-col hx:gap-1 hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:ltr:ml-3 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:mr-3 hx:rtl:pr-3 hx:rtl:before:right-0 hx:dark:before:bg-neutral-800'>
-                  <li>
-                    <a class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word] hextra-sidebar-active-item hx:bg-primary-100 hx:font-semibold hx:text-primary-800 hx:contrast-more:border hx:contrast-more:border-primary-500 hx:dark:bg-primary-400/10 hx:dark:text-primary-600 hx:contrast-more:dark:border-primary-500" href="{{ $context.RelPermalink }}">{{ $context.Title }}</a>
-                  </li>
-                </ul>
-              </div>
-            {{- end -}}
-          </li>
-          {{- end -}}
+  {{- with index site.Taxonomies $studioTaxonomy -}}
+    <div class="igd-section-sidebar__divider"></div>
+    <div class="igd-section-sidebar__title">Studios</div>
+    {{- range $term, $weightedPages := . -}}
+      {{- if or (ne $context.Kind "page") (in $currentStudios $term) -}}
+        {{- $studioURL := relURL (printf "%s/%s/" $section $term) -}}
+        {{- $isActiveStudio := or (eq $pageURL $studioURL) (in $currentStudios $term) -}}
+        <a class="igd-section-sidebar__filter{{ if $isActiveStudio }} igd-section-sidebar__filter--active{{ end }}" href="{{ $studioURL }}"><span>{{ $term | humanize }}</span></a>
+        {{- if and $isActiveStudio (eq $context.Kind "page") -}}
+          <a class="igd-section-sidebar__child igd-section-sidebar__child--active" href="{{ $context.RelPermalink }}">{{ $context.Title }}</a>
         {{- end -}}
       {{- end -}}
+    {{- end -}}
+  {{- end -}}
 
-      {{- if and (eq $context.Kind "page") $currentTags -}}
-        <li class="[word-break:break-word] hx:mt-5 hx:mb-2 hx:px-2 hx:py-1.5 hx:text-sm hx:font-semibold hx:text-gray-900 hx:first:mt-0 hx:dark:text-gray-100">
-          <span class="hx:cursor-default">Tags</span>
-        </li>
-        {{- range $currentTags -}}
-          {{- $tagURL := relURL (printf "%s/%s/" $tagTaxonomy .) -}}
-          <li>
-            <a class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50" href="{{ $tagURL }}">
-              <span>{{ . }}</span>
-            </a>
-          </li>
-        {{- end -}}
-      {{- else -}}
-        {{- with index site.Taxonomies $tagTaxonomy -}}
-          <li class="[word-break:break-word] hx:mt-5 hx:mb-2 hx:px-2 hx:py-1.5 hx:text-sm hx:font-semibold hx:text-gray-900 hx:first:mt-0 hx:dark:text-gray-100">
-            <span class="hx:cursor-default">Tags</span>
-          </li>
-          {{- range $term, $weightedPages := . -}}
-            {{- $termPage := $weightedPages.Page -}}
-            <li>
-              <a class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word] {{ if eq $pageURL $termPage.RelPermalink }}hextra-sidebar-active-item hx:bg-primary-100 hx:font-semibold hx:text-primary-800 hx:contrast-more:border hx:contrast-more:border-primary-500 hx:dark:bg-primary-400/10 hx:dark:text-primary-600 hx:contrast-more:dark:border-primary-500{{ else }}hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50{{ end }}" href="{{ $termPage.RelPermalink }}">
-                <span>{{ $term }}</span>
-              </a>
-            </li>
-          {{- end -}}
-        {{- end -}}
+  {{- if and (eq $context.Kind "page") $currentTags -}}
+    <div class="igd-section-sidebar__divider"></div>
+    <div class="igd-section-sidebar__title">Tags</div>
+    {{- range $currentTags -}}
+      {{- $tagURL := relURL (printf "%s/%s/" $tagTaxonomy .) -}}
+      <a class="igd-section-sidebar__filter" href="{{ $tagURL }}"><span>{{ . | humanize }}</span></a>
+    {{- end -}}
+  {{- else -}}
+    {{- with index site.Taxonomies $tagTaxonomy -}}
+      <div class="igd-section-sidebar__divider"></div>
+      <div class="igd-section-sidebar__title">Tags</div>
+      {{- range $term, $weightedPages := . -}}
+        {{- $termPage := $weightedPages.Page -}}
+        <a class="igd-section-sidebar__filter{{ if eq $pageURL $termPage.RelPermalink }} igd-section-sidebar__filter--active{{ end }}" href="{{ $termPage.RelPermalink }}"><span>{{ $term | humanize }}</span></a>
       {{- end -}}
-    </ul>
-  </div>
+    {{- end -}}
+  {{- end -}}
 </aside>
