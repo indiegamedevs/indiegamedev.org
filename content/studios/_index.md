@@ -1,5 +1,6 @@
 ---
 title: Studios
+description: Studios and independent teams contributing games, tools, articles, news, tutorials, and videos.
 weight: 8
 ---
 

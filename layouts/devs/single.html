@@ -7,10 +7,10 @@
       {{- $image = relURL (strings.TrimPrefix "/" $image) -}}
     {{- end -}}
   {{- end -}}
-  <div class="hx:mx-auto hx:flex hextra-max-page-width">
-    {{ partial "sidebar.html" (dict "context" . "disableSidebar" true) }}
+  <div class="igd-section-shell">
+    {{ partial "browse-sidebar.html" (dict "context" .) }}
     <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
-      <main class="igd-dev-profile hx:w-full hx:min-w-0 hx:max-w-4xl hx:px-6 hx:pt-4 hx:md:px-12">
+      <main class="igd-section-main igd-dev-profile hx:w-full hx:min-w-0 hx:max-w-4xl hx:px-6 hx:pt-4 hx:md:px-12">
         {{ partial "breadcrumb.html" (dict "page" . "enable" false) }}
         <header class="igd-dev-profile__header">
           {{- with $image -}}

@@ -1,0 +1,66 @@
+{{- $page := .page -}}
+{{- $section := $page.Section -}}
+{{- $label := upper $section -}}
+{{- if eq $section "articles" -}}{{- $label = "ARTICLE" -}}{{- end -}}
+{{- if eq $section "tutorials" -}}{{- $label = "TUTORIAL" -}}{{- end -}}
+{{- if eq $section "games" -}}{{- $label = "GAME" -}}{{- end -}}
+{{- if eq $section "tools" -}}{{- $label = "TOOL" -}}{{- end -}}
+{{- if eq $section "news" -}}{{- $label = "NEWS" -}}{{- end -}}
+{{- if eq $section "videos" -}}{{- $label = "VIDEO" -}}{{- end -}}
+{{- $image := or $page.Params.image $page.Params.cover $page.Params.thumbnail -}}
+{{- $imageAlt := $page.Params.image_alt | default $page.Title -}}
+{{- if $image -}}
+  {{- $isLocal := not (urls.Parse $image).Scheme -}}
+  {{- if and $isLocal (hasPrefix $image "/") -}}
+    {{- $image = relURL (strings.TrimPrefix "/" $image) -}}
+  {{- end -}}
+{{- end -}}
+{{- $studioParam := "" -}}
+{{- if eq $section "games" -}}{{- $studioParam = "game_studios" -}}{{- end -}}
+{{- if eq $section "articles" -}}{{- $studioParam = "article_studios" -}}{{- end -}}
+{{- if eq $section "news" -}}{{- $studioParam = "news_studios" -}}{{- end -}}
+{{- if eq $section "tutorials" -}}{{- $studioParam = "tutorial_studios" -}}{{- end -}}
+{{- if eq $section "tools" -}}{{- $studioParam = "tool_studios" -}}{{- end -}}
+{{- if eq $section "videos" -}}{{- $studioParam = "video_studios" -}}{{- end -}}
+{{- $tagParam := "" -}}
+{{- if eq $section "games" -}}{{- $tagParam = "game_tags" -}}{{- end -}}
+{{- if eq $section "articles" -}}{{- $tagParam = "articles_tags" -}}{{- end -}}
+{{- if eq $section "news" -}}{{- $tagParam = "news_tags" -}}{{- end -}}
+{{- if eq $section "tutorials" -}}{{- $tagParam = "tutorial_tags" -}}{{- end -}}
+{{- if eq $section "tools" -}}{{- $tagParam = "tool_tags" -}}{{- end -}}
+{{- if eq $section "videos" -}}{{- $tagParam = "video_tags" -}}{{- end -}}
+
+<article class="igd-home-card">
+  <a href="{{ $page.RelPermalink }}" class="igd-home-card__link" aria-label="{{ $page.Title }}">
+    <div class="igd-home-card__media{{ if not $image }} igd-home-card__media--empty{{ end }}">
+      {{- with $image -}}
+        <img src="{{ . | safeURL }}" alt="{{ $imageAlt }}" loading="lazy" />
+      {{- end -}}
+      <span class="igd-home-card__badge">{{ $label }}</span>
+    </div>
+    <div class="igd-home-card__body">
+      {{- if $studioParam -}}
+        {{- with index $page.Params $studioParam -}}
+          <div class="igd-home-card__studios">
+            {{- range first 2 . -}}
+              {{- $studio := . -}}
+              {{- $studioPage := site.GetPage (printf "/studios/%s" $studio) -}}
+              <span>{{- with $studioPage -}}{{ .Title }}{{- else -}}{{ $studio | humanize }}{{- end -}}</span>
+            {{- end -}}
+          </div>
+        {{- end -}}
+      {{- end -}}
+      <h3>{{ $page.Title }}</h3>
+      <p>{{ partial "utils/page-description" $page }}</p>
+      {{- if $tagParam -}}
+        {{- with index $page.Params $tagParam -}}
+          <div class="igd-home-card__tags">
+            {{- range first 3 . -}}
+              <span>{{ . | humanize }}</span>
+            {{- end -}}
+          </div>
+        {{- end -}}
+      {{- end -}}
+    </div>
+  </a>
+</article>

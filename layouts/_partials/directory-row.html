@@ -1,0 +1,35 @@
+{{- $page := .page -}}
+{{- $kind := .kind | default $page.Section -}}
+{{- $label := $kind | humanize -}}
+{{- if eq $kind "devs" -}}{{- $label = "Developer" -}}{{- end -}}
+{{- if eq $kind "developer" -}}{{- $label = "Developer" -}}{{- end -}}
+{{- if eq $kind "studios" -}}{{- $label = "Studio" -}}{{- end -}}
+{{- if eq $kind "studio" -}}{{- $label = "Studio" -}}{{- end -}}
+{{- $image := or $page.Params.banner_image $page.Params.image $page.Params.cover $page.Params.thumbnail -}}
+{{- $imageAlt := $page.Params.banner_alt | default ($page.Params.image_alt | default $page.Title) -}}
+{{- if $image -}}
+  {{- $isLocal := not (urls.Parse $image).Scheme -}}
+  {{- if and $isLocal (hasPrefix $image "/") -}}
+    {{- $image = relURL (strings.TrimPrefix "/" $image) -}}
+  {{- end -}}
+{{- end -}}
+
+<article class="igd-directory-row">
+  <a class="igd-directory-row__link" href="{{ $page.RelPermalink }}" aria-label="{{ $page.Title }}">
+    <span class="igd-directory-row__media{{ if not $image }} igd-directory-row__media--empty{{ end }}">
+      {{- with $image -}}
+        <img class="igd-post-image-bg" src="{{ . | safeURL }}" alt="" aria-hidden="true" loading="lazy" />
+        <img class="igd-post-image-main" src="{{ . | safeURL }}" alt="{{ $imageAlt }}" loading="lazy" />
+      {{- end -}}
+    </span>
+    <span class="igd-directory-row__body">
+      <span class="igd-directory-row__eyebrow">{{ $label }}</span>
+      <span class="igd-directory-row__title">{{ $page.Title }}</span>
+      {{- with $page.Description -}}
+        <span class="igd-directory-row__summary">{{ . }}</span>
+      {{- else -}}
+        {{- with $page.Summary -}}<span class="igd-directory-row__summary">{{ . | plainify }}</span>{{- end -}}
+      {{- end -}}
+    </span>
+  </a>
+</article>
