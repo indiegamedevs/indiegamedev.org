@@ -1,0 +1,210 @@
+{{ define "main" }}
+  {{- $resourceSections := slice "news" "articles" "tutorials" "videos" "games" "tools" -}}
+  {{- $resources := where site.RegularPages "Section" "in" $resourceSections -}}
+  {{- $recentResources := first 8 (sort $resources "Date" "desc") -}}
+  {{- $searchSections := slice "news" "articles" "tutorials" "videos" "games" "tools" "studios" "devs" -}}
+  {{- $searchPages := where site.RegularPages "Section" "in" $searchSections -}}
+  {{- $metadataParams := slice "game_tags" "articles_tags" "news_tags" "tutorial_tags" "tool_tags" "video_tags" "game_studios" "article_studios" "news_studios" "tutorial_studios" "tool_studios" "video_studios" -}}
+  {{- $searchItems := slice -}}
+  {{- range $searchPages -}}
+    {{- $page := . -}}
+    {{- $terms := slice $page.Title $page.Description $page.Summary $page.Plain $page.Section -}}
+    {{- range $metadataParams -}}
+      {{- with index $page.Params . -}}
+        {{- range . -}}{{- $terms = $terms | append . -}}{{- end -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $searchItems = $searchItems | append (dict "url" $page.RelPermalink "title" $page.Title "section" $page.Section "text" (delimit $terms " ")) -}}
+  {{- end -}}
+  {{- $gamesCount := len (where site.RegularPages "Section" "games") -}}
+  {{- $toolsCount := len (where site.RegularPages "Section" "tools") -}}
+  {{- $articlesCount := len (where site.RegularPages "Section" "articles") -}}
+  {{- $tutorialsCount := len (where site.RegularPages "Section" "tutorials") -}}
+  {{- $videosCount := len (where site.RegularPages "Section" "videos") -}}
+  {{- $studiosCount := 0 -}}
+  {{- with site.GetPage "section" "studios" -}}{{- $studiosCount = len .Sections -}}{{- end -}}
+  {{- $resourceCount := len $resources -}}
+
+  <div class="igd-home">
+    <aside class="igd-home-sidebar igd-home-sidebar--left" aria-label="Browse resources">
+      <div class="igd-home-sidebar__title">Browse</div>
+      <a class="igd-home-sidebar__link" href="{{ relURL "games/" }}">Games</a>
+      <a class="igd-home-sidebar__link" href="{{ relURL "articles/" }}">Articles</a>
+      <a class="igd-home-sidebar__link" href="{{ relURL "tutorials/" }}">Tutorials</a>
+      <a class="igd-home-sidebar__link" href="{{ relURL "tools/" }}">Tools</a>
+      <a class="igd-home-sidebar__link" href="{{ relURL "studios/" }}">Studios</a>
+
+      <div class="igd-home-sidebar__divider"></div>
+
+      <div class="igd-home-sidebar__title">Explore Tags</div>
+      <a class="igd-home-filter" href="{{ relURL "game_tags/godot/" }}"><span>Godot</span><span>&rsaquo;</span></a>
+      <a class="igd-home-filter" href="{{ relURL "game_tags/open-source/" }}"><span>Open Source</span><span>&rsaquo;</span></a>
+      <a class="igd-home-filter" href="{{ relURL "tool_tags/audio/" }}"><span>Audio</span><span>&rsaquo;</span></a>
+      <a class="igd-home-filter" href="{{ relURL "video_tags/talk/" }}"><span>Talks</span><span>&rsaquo;</span></a>
+    </aside>
+
+    <main class="igd-home-main">
+      <section class="igd-home-hero">
+        <div class="igd-home-hero__content">
+          <h1>A growing archive for indie game developers.</h1>
+          <p>Find community-submitted news, articles, tutorials, videos, games, tools, studios, and developer profiles. Curated in Markdown and published through GitHub pull requests.</p>
+          <form class="igd-home-search" role="search" autocomplete="off">
+            <span class="igd-home-search__icon" aria-hidden="true">&#8981;</span>
+            <input type="search" placeholder="Search games, tools, articles, tutorials, videos, studios..." aria-label="Search indiegamedev.org" aria-controls="igd-home-search-results" aria-expanded="false" />
+            <button type="submit">Search</button>
+          </form>
+          <div class="igd-home-search-results" id="igd-home-search-results" hidden></div>
+          <div class="igd-home-popular" aria-label="Popular searches">
+            <span>Popular:</span>
+            <a href="{{ relURL "game_tags/godot/" }}">Godot</a>
+            <a href="{{ relURL "tool_tags/audio/" }}">Audio</a>
+            <a href="{{ relURL "game_tags/game-jam/" }}">Game Jam</a>
+            <a href="{{ relURL "game_tags/open-source/" }}">Open Source</a>
+            <a href="{{ relURL "video_tags/interactive-audio/" }}">Interactive Audio</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="igd-home-content" aria-labelledby="resource-heading">
+        <div class="igd-home-toolbar">
+          <div>
+            <h2 id="resource-heading">Recent Resources</h2>
+            <p>Latest news, articles, tutorials, videos, games, and tools.</p>
+          </div>
+          <div class="igd-home-tabs" aria-label="Resource sections">
+            <a class="igd-home-tab igd-home-tab--active" href="{{ relURL "" }}">All</a>
+            <a class="igd-home-tab" href="{{ relURL "news/" }}">News</a>
+            <a class="igd-home-tab" href="{{ relURL "articles/" }}">Articles</a>
+            <a class="igd-home-tab" href="{{ relURL "tutorials/" }}">Tutorials</a>
+            <a class="igd-home-tab" href="{{ relURL "videos/" }}">Videos</a>
+          </div>
+        </div>
+
+        <div class="igd-home-resource-grid">
+          {{- range $recentResources -}}
+            {{ partial "home-resource-card.html" (dict "page" .) }}
+          {{- end -}}
+        </div>
+
+        <div class="igd-home-contribution">
+          <div>
+            <strong>This site is open source and community-powered.</strong>
+            <span>Fix typos, add games, share tools, write articles, and improve the index through GitHub.</span>
+          </div>
+          <a href="https://github.com/indiegamedevs/indiegamedev.org" target="_blank" rel="noopener noreferrer">Contribute on GitHub</a>
+        </div>
+      </section>
+    </main>
+
+    <aside class="igd-home-sidebar igd-home-sidebar--right" aria-label="Site information">
+      <section class="igd-home-side-card">
+        <h2>Quick Links</h2>
+        <a href="{{ relURL "contributing/" }}">Contribution Guide</a>
+        <a href="https://github.com/indiegamedevs/indiegamedev.org" target="_blank" rel="noopener noreferrer">Contribute on GitHub</a>
+      </section>
+
+      <section class="igd-home-side-card">
+        <h2>Publishing Model</h2>
+        <div class="igd-home-workflow"><span>1</span><div><strong>Write in Markdown</strong><p>Add or improve content in the repository.</p></div></div>
+        <div class="igd-home-workflow"><span>2</span><div><strong>Open a Pull Request</strong><p>Propose your changes for review.</p></div></div>
+        <div class="igd-home-workflow"><span>3</span><div><strong>Review</strong><p>Maintainers review the contribution.</p></div></div>
+        <div class="igd-home-workflow"><span>4</span><div><strong>Publish</strong><p>Merged content appears in the static site.</p></div></div>
+      </section>
+
+      <section class="igd-home-side-card">
+        <h2>Site Stats</h2>
+        <div class="igd-home-stats">
+          <span>Resources</span><strong>{{ $resourceCount }}</strong>
+          <span>Games</span><strong>{{ $gamesCount }}</strong>
+          <span>Tools</span><strong>{{ $toolsCount }}</strong>
+          <span>Articles</span><strong>{{ $articlesCount }}</strong>
+          <span>Tutorials</span><strong>{{ $tutorialsCount }}</strong>
+          <span>Videos</span><strong>{{ $videosCount }}</strong>
+          <span>Studios</span><strong>{{ $studiosCount }}</strong>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var form = document.querySelector('.igd-home-search');
+      var input = document.querySelector('.igd-home-search input');
+      var results = document.querySelector('.igd-home-search-results');
+      var searchData = {{ $searchItems | jsonify | safeJS }};
+
+      function sectionLabel(section) {
+        if (section === 'devs') return 'developers';
+        return String(section || 'page').replace(/-/g, ' ');
+      }
+
+      function escapeHtml(value) {
+        return String(value).replace(/[&<>"]/g, function (character) {
+          return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[character];
+        });
+      }
+
+      function hideResults() {
+        if (results) {
+          results.hidden = true;
+          results.innerHTML = '';
+        }
+        if (input) input.setAttribute('aria-expanded', 'false');
+      }
+
+      function renderResults(items, query) {
+        if (!results || !input) return;
+        if (!query) {
+          hideResults();
+          return;
+        }
+
+        if (!items.length) {
+          results.hidden = false;
+          input.setAttribute('aria-expanded', 'true');
+          results.innerHTML = '<div class="igd-home-search-results__empty">No results found.</div>';
+          return;
+        }
+
+        results.hidden = false;
+        input.setAttribute('aria-expanded', 'true');
+        results.innerHTML = items.slice(0, 8).map(function (item) {
+          return '<a href="' + escapeHtml(item.url) + '"><span>' + escapeHtml(sectionLabel(item.section)) + '</span><strong>' + escapeHtml(item.title) + '</strong></a>';
+        }).join('');
+      }
+
+      function runSearch() {
+        var query = input ? input.value.trim().toLowerCase() : '';
+        if (!query) {
+          hideResults();
+          return;
+        }
+
+        var terms = query.split(/\s+/).filter(Boolean);
+        var matches = searchData.filter(function (item) {
+          var text = String(item.text || '').toLowerCase();
+          return terms.every(function (term) { return text.indexOf(term) !== -1; });
+        });
+        renderResults(matches, query);
+      }
+
+      if (input) {
+        input.addEventListener('input', runSearch);
+        input.addEventListener('focus', runSearch);
+      }
+
+      if (form) {
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+          runSearch();
+        });
+      }
+
+      document.addEventListener('click', function (event) {
+        if (form && results && !form.contains(event.target) && !results.contains(event.target)) {
+          hideResults();
+        }
+      });
+    });
+  </script>
+{{ end }}
