@@ -1,4 +1,5 @@
 {{ define "main" }}
+  {{ partial "sidebar.html" (dict "context" . "disableSidebar" true "displayPlaceholder" true) }}
   {{- $resourceSections := slice "news" "articles" "tutorials" "videos" "games" "tools" -}}
   {{- $resources := where site.RegularPages "Section" "in" $resourceSections -}}
   {{- $recentResources := first 8 (sort $resources "Date" "desc") -}}
