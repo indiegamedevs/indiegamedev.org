@@ -1,4 +1,5 @@
 {{ define "main" }}
+  {{ partial "sidebar.html" (dict "context" . "disableSidebar" true "displayPlaceholder" true) }}
   <div class='igd-section-shell'>
     {{ partial "browse-sidebar.html" (dict "context" .) }}
     <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:pb-8 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
