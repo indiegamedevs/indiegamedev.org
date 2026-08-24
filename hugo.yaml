@@ -86,7 +86,7 @@ menu:
 
 params:
   description: "Open source games, tools, tutorials, articles, and news for indie game developers."
-  social_image: "/images/studios/tecunhuman/banner.jpg"
+  social_image: "/images/site/game-controller-icon.jpg"
 
   navbar:
     displayTitle: true
