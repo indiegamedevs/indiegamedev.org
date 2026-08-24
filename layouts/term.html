@@ -1,5 +1,5 @@
 {{ define "main" }}
-  {{ partial "sidebar.html" (dict "context" . "disableSidebar" true "displayPlaceholder" true) }}
+  {{ partial "sidebar.html" (dict "context" . "disableSidebar" true) }}
   {{- $readMore := (T "readMore") | default "Read more" -}}
   {{- $sectionLabel := "" -}}
   {{- if eq .Type "game_tags" -}}

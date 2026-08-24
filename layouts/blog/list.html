@@ -1,5 +1,5 @@
 {{ define "main" }}
-  {{ partial "sidebar.html" (dict "context" . "disableSidebar" true "displayPlaceholder" true) }}
+  {{ partial "sidebar.html" (dict "context" . "disableSidebar" true) }}
   {{- $readMore := (T "readMore") | default "Read more" -}}
   {{- $showStudio := eq .RelPermalink (relURL (printf "%s/" .Section)) -}}
   {{- $displayTitle := .Title -}}
