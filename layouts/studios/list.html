@@ -1,5 +1,5 @@
 {{ define "main" }}
-  {{ partial "sidebar.html" (dict "context" . "disableSidebar" true "displayPlaceholder" true) }}
+  {{ partial "sidebar.html" (dict "context" . "disableSidebar" true) }}
   {{- $isStudioProfile := and .Parent (eq .Parent.RelPermalink "/studios/") -}}
   {{- $studio := "" -}}
   {{- if $isStudioProfile -}}
