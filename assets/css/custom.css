@@ -524,6 +524,24 @@
   margin: 0 auto;
 }
 
+.igd-site-footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--igd-section-border, #dfe5e9);
+  color: var(--igd-section-muted, #687582);
+  font-size: 0.9rem;
+  text-align: right;
+}
+
+.igd-site-footer p {
+  margin: 0;
+}
+
+.igd-site-footer a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
 
 @media (max-width: 1400px) {
   .igd-section-card-grid {
