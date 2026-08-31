@@ -349,6 +349,11 @@
   min-height: 12rem;
 }
 
+.igd-post-card__media--cover .igd-post-image-main {
+  object-fit: cover;
+}
+
+
 .igd-post-card__body {
   min-width: 0;
   display: flex;
@@ -1542,6 +1547,11 @@
   height: 100%;
   object-fit: cover;
 }
+
+.igd-home-card__media--contain img {
+  object-fit: contain;
+}
+
 
 .igd-home-card__media--empty {
   background: radial-gradient(circle at 70% 45%, #00b9c6, transparent 20%), linear-gradient(135deg, #052238, #074969);
