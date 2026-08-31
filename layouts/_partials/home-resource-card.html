@@ -9,6 +9,7 @@
 {{- if eq $section "videos" -}}{{- $label = "VIDEO" -}}{{- end -}}
 {{- $image := or $page.Params.image $page.Params.cover $page.Params.thumbnail -}}
 {{- $imageAlt := $page.Params.image_alt | default $page.Title -}}
+{{- $imageFit := $page.Params.card_image_fit | default "cover" -}}
 {{- if $image -}}
   {{- $isLocal := not (urls.Parse $image).Scheme -}}
   {{- if and $isLocal (hasPrefix $image "/") -}}
@@ -32,7 +33,7 @@
 
 <article class="igd-home-card">
   <a href="{{ $page.RelPermalink }}" class="igd-home-card__link" aria-label="{{ $page.Title }}">
-    <div class="igd-home-card__media{{ if not $image }} igd-home-card__media--empty{{ end }}">
+    <div class="igd-home-card__media{{ if not $image }} igd-home-card__media--empty{{ end }}{{ if eq $imageFit "contain" }} igd-home-card__media--contain{{ end }}">
       {{- with $image -}}
         <img src="{{ . | safeURL }}" alt="{{ $imageAlt }}" loading="lazy" />
       {{- end -}}
