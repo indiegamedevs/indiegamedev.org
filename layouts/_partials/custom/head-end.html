@@ -1,13 +1,1 @@
-{{- $description := .Description | default .Site.Params.description | default .Summary | plainify -}}
-{{- $image := .Params.image | default .Params.banner_image | default .Site.Params.social_image -}}
-
-<meta property="og:title" content="{{ .Title }}">
-<meta property="og:description" content="{{ $description }}">
-<meta property="og:type" content="website">
-<meta property="og:url" content="{{ .Permalink }}">
-
-{{- with $image }}
-<meta property="og:image" content="{{ . | absURL }}">
-{{- end }}
-
-<meta name="twitter:card" content="summary_large_image">
+{{- /* SEO metadata is emitted by Hextra built-ins; defaults are configured in hugo.yaml. */ -}}
