@@ -10,3 +10,5 @@ summary: "An open-source Game Boy Advance Tetris game written using DevkitPro."
 ---
 
 Tetris is an open-source Game Boy Advance game from the `gba-games` repository. It was written using DevkitPro and can be built into a GBA ROM for play in an emulator.
+
+[Play in the browser](https://nonameentername.github.io/gba-games/tetris)
