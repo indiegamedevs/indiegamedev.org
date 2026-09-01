@@ -1,7 +1,7 @@
 ---
 title: "indiegamedev.org is Live"
 date: 2026-08-25
-articles_tags: ["indie-game-development", "community", "open-source"]
+news_tags: ["indie-game-development", "community", "open-source"]
 image: "/images/site/game-controller-background.jpg"
 image_alt: "indiegamedev.org game controller artwork"
 row_image_fit: cover

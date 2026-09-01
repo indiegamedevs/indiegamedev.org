@@ -10,3 +10,5 @@ summary: "An open-source fighting game project."
 ---
 
 OpenFight is an open source fighting game written in c++ using sdl.
+
+[Play in the browser](https://nonameentername.github.io/openfight)
