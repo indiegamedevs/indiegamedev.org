@@ -10,3 +10,5 @@ summary: "An open-source Nintendo DS game written using DevkitPro."
 ---
 
 Avalanche is an open-source Nintendo DS game from the `nds-games` repository. It was written using DevkitPro and can be built into a Nintendo DS ROM for play in an emulator.
+
+[Play in the browser](https://nonameentername.github.io/nds-games/avalanche)
