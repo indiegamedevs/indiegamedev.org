@@ -10,3 +10,5 @@ summary: "An older open-source Windows Tetris game built with WinBGIm."
 ---
 
 Tetris is an older open-source Windows game from the `windows-games` repository. It was built with C++ and WinBGIm and can be run on Windows or through Wine.
+
+[Play in the browser](https://nonameentername.github.io/windows-games/tetris)
