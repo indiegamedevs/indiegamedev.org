@@ -10,3 +10,5 @@ summary: "A game created for Global Game Jam 2020."
 ---
 
 Tamaraland is an open-source game created for Global Game Jam 2020. The project is built with Unity and C# in the `bootleggers-moonshine` repository.
+
+[Play in the browser](https://nonameentername.github.io/bootleggers-moonshine)

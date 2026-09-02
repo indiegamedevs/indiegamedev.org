@@ -10,3 +10,5 @@ summary: "An open-source game project built with Unity and C#."
 ---
 
 Dinobyte is an open-source game project built with Unity and C#.
+
+[Play in the browser](https://nonameentername.github.io/dinobyte)
