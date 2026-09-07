@@ -232,3 +232,7 @@ EmulatorJS handles the emulation, a small HTML file embeds each game, and GitHub
 Adding GitHub Actions makes the workflow even nicer because publishing becomes part of the normal development process rather than a separate manual task.
 
 For older indie game projects in particular, I think this is a really nice way to make the work easier to discover, play, and preserve.
+
+---
+
+If you’d like to support my work and get project updates like this earlier, you can follow me on [Patreon](https://www.patreon.com/tecunhuman/posts/how-i-got-my-gba-168893721).
