@@ -2,6 +2,13 @@
   {{ partial "sidebar.html" (dict "context" . "disableSidebar" true) }}
   {{- $readMore := (T "readMore") | default "Read more" -}}
   {{- $showStudio := eq .RelPermalink (relURL (printf "%s/" .Section)) -}}
+  {{- $tagParam := "" -}}
+  {{- if eq .Section "games" -}}{{- $tagParam = "game_tags" -}}{{- end -}}
+  {{- if eq .Section "articles" -}}{{- $tagParam = "articles_tags" -}}{{- end -}}
+  {{- if eq .Section "news" -}}{{- $tagParam = "news_tags" -}}{{- end -}}
+  {{- if eq .Section "tutorials" -}}{{- $tagParam = "tutorial_tags" -}}{{- end -}}
+  {{- if eq .Section "tools" -}}{{- $tagParam = "tool_tags" -}}{{- end -}}
+  {{- if eq .Section "videos" -}}{{- $tagParam = "video_tags" -}}{{- end -}}
   {{- $displayTitle := .Title -}}
   {{- if and .Parent (eq .Parent.Section .Section) -}}
     {{- $sectionLabel := "" -}}
@@ -36,7 +43,7 @@
             {{- end -}}
           </div>
           <div class="igd-section-count">
-            <strong>{{ len .RegularPagesRecursive }}</strong>
+            <strong data-igd-entry-count>{{ len .RegularPagesRecursive }}</strong>
             <span>entries</span>
           </div>
         </header>
@@ -53,12 +60,20 @@
         <div class="igd-section-feed" data-igd-view="cards">
           <div class="igd-section-card-grid" data-igd-feed-view="cards">
             {{- range .RegularPagesRecursive.ByDate.Reverse }}
-              {{ partial "home-resource-card.html" (dict "page" .) }}
+              {{- $itemTags := slice -}}
+              {{- with index .Params $tagParam -}}{{- $itemTags = . -}}{{- end -}}
+              <div data-igd-feed-item data-igd-tags="{{ delimit $itemTags " " }}">
+                {{ partial "home-resource-card.html" (dict "page" .) }}
+              </div>
             {{- end }}
           </div>
           <div class="igd-post-feed" data-igd-feed-view="rows" hidden>
             {{- range .RegularPagesRecursive.ByDate.Reverse }}
-              {{ partial "post-card.html" (dict "page" . "readMore" $readMore "showStudio" $showStudio) }}
+              {{- $itemTags := slice -}}
+              {{- with index .Params $tagParam -}}{{- $itemTags = . -}}{{- end -}}
+              <div data-igd-feed-item data-igd-tags="{{ delimit $itemTags " " }}">
+                {{ partial "post-card.html" (dict "page" . "readMore" $readMore "showStudio" $showStudio) }}
+              </div>
             {{- end }}
           </div>
         </div>
@@ -74,6 +89,29 @@
       var storageKey = 'igd-section-feed-view';
       var buttons = Array.prototype.slice.call(document.querySelectorAll('[data-igd-view-button]'));
       var views = Array.prototype.slice.call(document.querySelectorAll('[data-igd-feed-view]'));
+
+      function applyFilters() {
+        var params = new URLSearchParams(window.location.search);
+        var tag = params.get('tag');
+        var items = Array.prototype.slice.call(document.querySelectorAll('[data-igd-feed-item]'));
+        var visible = 0;
+
+        items.forEach(function (element) {
+          var tags = (element.getAttribute('data-igd-tags') || '').split(/\s+/);
+          var matchesTag = !tag || tags.indexOf(tag) !== -1;
+          element.hidden = !matchesTag;
+          if (matchesTag) visible += 1;
+        });
+
+        var count = document.querySelector('[data-igd-entry-count]');
+        if (count) count.textContent = String(visible);
+
+        var tagLinks = Array.prototype.slice.call(document.querySelectorAll('[data-igd-tag-filter]'));
+        tagLinks.forEach(function (link) {
+          var active = tag && link.getAttribute('data-igd-tag-filter') === tag;
+          link.classList.toggle('igd-section-sidebar__filter--active', active);
+        });
+      }
 
       function setView(view) {
         if (view !== 'rows') view = 'cards';
@@ -98,6 +136,7 @@
       var preferred = 'cards';
       try { preferred = window.localStorage.getItem(storageKey) || preferred; } catch (error) {}
       setView(preferred);
+      applyFilters();
     });
   </script>
 {{- end -}}

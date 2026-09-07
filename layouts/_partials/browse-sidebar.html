@@ -61,6 +61,7 @@
 {{- with index $context.Params $tagTaxonomy -}}
 {{- $currentTags = . -}}
 {{- end -}}
+{{- $isScopedSection := and (eq $context.Kind "section") $context.Parent (eq $context.Parent.Section $section) -}}
 <aside class="igd-section-sidebar" aria-label="Section filters">
   {{- with $sectionTitle -}}
     <div class="igd-section-sidebar__title">Section</div>
@@ -93,12 +94,32 @@
       <a class="igd-section-sidebar__filter" href="{{ $tagURL }}"><span>{{ . | humanize }}</span></a>
     {{- end -}}
   {{- else -}}
-    {{- with index site.Taxonomies $tagTaxonomy -}}
-      <div class="igd-section-sidebar__divider"></div>
-      <div class="igd-section-sidebar__title">Tags</div>
-      {{- range $term, $weightedPages := . -}}
-        {{- $termPage := $weightedPages.Page -}}
-        <a class="igd-section-sidebar__filter{{ if eq $pageURL $termPage.RelPermalink }} igd-section-sidebar__filter--active{{ end }}" href="{{ $termPage.RelPermalink }}"><span>{{ $term | humanize }}</span></a>
+    {{- if $isScopedSection -}}
+      {{- $scratch := newScratch -}}
+      {{- $scratch.Set "scopedTags" slice -}}
+      {{- range $context.RegularPagesRecursive -}}
+        {{- with index .Params $tagTaxonomy -}}
+          {{- range . -}}
+            {{- $scratch.Add "scopedTags" (slice .) -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+      {{- with ($scratch.Get "scopedTags" | uniq | sort) -}}
+        <div class="igd-section-sidebar__divider"></div>
+        <div class="igd-section-sidebar__title">Tags</div>
+        {{- range . -}}
+          {{- $tagURL := printf "%s?tag=%s" $context.RelPermalink . -}}
+          <a class="igd-section-sidebar__filter" href="{{ $tagURL }}" data-igd-tag-filter="{{ . }}"><span>{{ . | humanize }}</span></a>
+        {{- end -}}
+      {{- end -}}
+    {{- else -}}
+      {{- with index site.Taxonomies $tagTaxonomy -}}
+        <div class="igd-section-sidebar__divider"></div>
+        <div class="igd-section-sidebar__title">Tags</div>
+        {{- range $term, $weightedPages := . -}}
+          {{- $termPage := $weightedPages.Page -}}
+          <a class="igd-section-sidebar__filter{{ if eq $pageURL $termPage.RelPermalink }} igd-section-sidebar__filter--active{{ end }}" href="{{ $termPage.RelPermalink }}" data-igd-tag-filter="{{ $term }}"><span>{{ $term | humanize }}</span></a>
+        {{- end -}}
       {{- end -}}
     {{- end -}}
   {{- end -}}
