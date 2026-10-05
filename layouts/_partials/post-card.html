@@ -4,6 +4,10 @@
 {{- $image := or $page.Params.image $page.Params.cover $page.Params.thumbnail -}}
 {{- $imageAlt := $page.Params.image_alt | default $page.Title -}}
 {{- $imageFit := $page.Params.row_image_fit | default "contain" -}}
+{{- $imageBlur := true -}}
+{{- if isset $page.Params "image_blur" -}}
+  {{- $imageBlur = $page.Params.image_blur -}}
+{{- end -}}
 {{- $studioParam := "" -}}
 {{- if eq $page.Section "games" -}}
   {{- $studioParam = "game_studios" -}}
@@ -42,7 +46,9 @@
 <article class="igd-post-card">
   {{- with $image -}}
     <a class="igd-post-card__media{{ if eq $imageFit "cover" }} igd-post-card__media--cover{{ end }}" href="{{ $page.RelPermalink }}" aria-label="{{ $page.Title }}">
-      <img class="igd-post-image-bg" src="{{ . | safeURL }}" alt="" aria-hidden="true" loading="lazy" />
+      {{- if $imageBlur -}}
+        <img class="igd-post-image-bg" src="{{ . | safeURL }}" alt="" aria-hidden="true" loading="lazy" />
+      {{- end -}}
       <img class="igd-post-image-main" src="{{ . | safeURL }}" alt="{{ $imageAlt }}" loading="lazy" />
     </a>
   {{- end -}}
