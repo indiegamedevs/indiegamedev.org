@@ -2,6 +2,10 @@
   {{ partial "sidebar.html" (dict "context" . "disableSidebar" true) }}
   {{- $image := or .Params.image .Params.cover .Params.thumbnail -}}
   {{- $imageAlt := .Params.image_alt | default .Title -}}
+  {{- $imageBlur := true -}}
+  {{- if isset .Params "image_blur" -}}
+    {{- $imageBlur = .Params.image_blur -}}
+  {{- end -}}
   {{- if $image -}}
     {{- $isLocal := not (urls.Parse $image).Scheme -}}
     {{- if and $isLocal (hasPrefix $image "/") -}}
@@ -28,7 +32,9 @@
           {{- end -}}
           {{- with $image -}}
             <figure class="igd-post-cover">
-              <img class="igd-post-image-bg" src="{{ . | safeURL }}" alt="" aria-hidden="true" />
+              {{- if $imageBlur -}}
+                <img class="igd-post-image-bg" src="{{ . | safeURL }}" alt="" aria-hidden="true" />
+              {{- end -}}
               <img class="igd-post-image-main" src="{{ . | safeURL }}" alt="{{ $imageAlt }}" />
             </figure>
           {{- end -}}
