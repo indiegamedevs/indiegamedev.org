@@ -1,0 +1,51 @@
+name: Pull Request Preview
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: pull-request-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Add or update preview comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PREVIEW_URL: https://deploy-preview-${{ github.event.pull_request.number }}--earnest-llama-fd282c.netlify.app/
+        run: |
+          marker='<!-- pull-request-preview -->'
+          short_sha="${PR_HEAD_SHA:0:7}"
+          body=$(printf '%s\n\n### Preview\n\n[Open the preview for this pull request](%s)\n\nThe preview automatically rebuilds when the pull request changes and may briefly be unavailable while the latest build is running.\n\nLatest commit: `%s`' \
+            "$marker" "$PREVIEW_URL" "$short_sha")
+
+          comment_id=$(gh api --paginate \
+            "repos/$REPOSITORY/issues/$PR_NUMBER/comments" \
+            | jq -rs --arg marker "$marker" \
+              'add | map(select(.body | contains($marker))) | first | .id // empty')
+
+          if [[ -n "$comment_id" ]]; then
+            gh api --method PATCH \
+              "repos/$REPOSITORY/issues/comments/$comment_id" \
+              -f body="$body"
+          else
+            gh api --method POST \
+              "repos/$REPOSITORY/issues/$PR_NUMBER/comments" \
+              -f body="$body"
+          fi
