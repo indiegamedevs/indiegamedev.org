@@ -4,3 +4,9 @@ command = "hugo --gc --minify"
 
 [build.environment]
 HUGO_VERSION = "0.165.0"
+
+[context.production]
+ignore = "exit 0"
+
+[context.deploy-preview]
+command = "hugo --gc --minify --baseURL \"$DEPLOY_PRIME_URL\""
