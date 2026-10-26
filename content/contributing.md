@@ -10,6 +10,28 @@ The goal is to make each entry useful to indie game developers: clear title, sho
 
 This site is meant to grow as a community reference, not a launch calendar or promotional directory. Studios should add games, tools, and resources that other developers can learn from, study, use, or build on. Open source projects are a strong fit because they can act as practical references for other indie developers.
 
+## Who Can Contribute?
+
+indiegamedev.org is a community-driven resource focused on independent game development.
+
+We welcome contributions from individuals and teams actively involved in creating independent games, game engines, development tools, and related projects.
+
+You do not need to be a professional developer, own a registered studio, or have released a commercial game. Hobbyists, solo developers, students, and small teams are welcome.
+
+Contributions should have a clear connection to independent game development and ideally reflect practical experience, ongoing projects, or knowledge gained through development.
+
+### Studio and Developer Profiles
+
+Studio profiles are intended for individuals or teams creating games or game-development tools. Developer profiles should represent people directly involved in those activities.
+
+General-purpose websites, fan communities, promotional directories, and unrelated documentation projects should not be submitted as game studios.
+
+### Editorial Review
+
+Submissions are reviewed for relevance, accuracy, and usefulness to the indie game development community.
+
+Maintainers may decline contributions that fall outside the project's focus, even when the submitted content is technically accurate or useful in another context.
+
 ## What to Add
 
 Good contributions include:
