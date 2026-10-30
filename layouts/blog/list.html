@@ -100,7 +100,7 @@
           var tags = (element.getAttribute('data-igd-tags') || '').split(/\s+/);
           var matchesTag = !tag || tags.indexOf(tag) !== -1;
           element.hidden = !matchesTag;
-          if (matchesTag) visible += 1;
+          if (matchesTag && element.closest('[data-igd-feed-view="cards"]')) visible += 1;
         });
 
         var count = document.querySelector('[data-igd-entry-count]');
